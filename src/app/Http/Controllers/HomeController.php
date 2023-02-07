@@ -10,4 +10,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function post(Request $request)
+    {
+        $text = $request->input('text');
+        $filepath = $request->input('file');
+
+        return view('home')->with([
+            "text" => $text,
+            "filepath" => $filepath,
+        ]);
+    }
 }
