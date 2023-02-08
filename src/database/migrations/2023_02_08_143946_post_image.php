@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('user_id');
-            $table->ipAddress('account_name', 15);
-            $table->ipAddress('nickname', 50);
-            $table->ipAddress('password', 50);
-            $table->ipAddress('mail_address', 254);
+        Schema::create('images', function (Blueprint $table) {
+            $table->increments('image_id');
+            $table->ipAddress('image_name', 50);
+            $table->ipAddress('post_id', 255);
+            $table->ipAddress('path', 255);
             $table->dateTime('created_at')->useCurrent();
-            $table->dateTime('updated_at')->useCurrentOnUpdate();
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('images');
     }
 };
