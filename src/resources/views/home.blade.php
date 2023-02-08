@@ -12,8 +12,8 @@
 				描いたものの紹介:<br>
 				<input type="text" name="text">
 				<br>
-				<!-- 描いたもの:<br>
-				<input type="file" name="file" accept="image/png, image/jpeg, application/pdf"> -->
+				描いたもの:<br>
+				<input type="file" name="file" accept="image/png, image/jpeg, application/pdf">
 			</div>
 			<div>
 				<input type="submit" value="投稿！">
