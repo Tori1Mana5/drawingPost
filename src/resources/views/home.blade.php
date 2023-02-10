@@ -6,7 +6,7 @@
 	<body>
 		<h1>ホーム画面</h1>
 		<h2>フォーム</h2>
-		<form action="{{ url('/home') }}" method="post">
+		<form action="{{ url('/home') }}" enctype='multipart/form-data' method="post">
 			{{ csrf_field() }}
 			<div>
 				描いたものの紹介:<br>

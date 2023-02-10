@@ -18,7 +18,6 @@ class HomeController extends Controller
 
         return view('home')->with([
             "text" => $text,
-            "filepath" => $filepath,
         ]);
     }
 }
