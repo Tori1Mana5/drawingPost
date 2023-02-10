@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function post(Request $request)
     {
         $text = $request->input('text');
-        $filepath = $request->input('file');
+        $filepath = $request->file('file');
 
         return view('home')->with([
             "text" => $text,
