@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('self_assessment_flg')->unsigned()->nullable($value = true);
             $table->ipAddress('self_assessment_text', 140)->nullable($value = true);
             $table->dateTime('created_at')->useCurrent();
-            $table->dateTime('updated_at')->useCurrentOnUpdate();
+            $table->dateTime('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('user_id')->references('user_id')->on('users');
         });

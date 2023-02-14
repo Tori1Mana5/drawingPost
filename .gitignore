@@ -64,4 +64,4 @@ Homestead.json
 .phpunit.result.cache
 docker/db/data/
 /.idea
-composer.json
+src/composer.json

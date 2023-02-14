@@ -6,6 +6,9 @@
 	<body>
 		<h1>ホーム画面</h1>
 		<h2>フォーム</h2>
+		@isset($a)
+		<p>{{ $a }}</p>
+		@endisset
 		<form action="{{ url('/home') }}" enctype='multipart/form-data' method="post">
 			{{ csrf_field() }}
 			<div>
