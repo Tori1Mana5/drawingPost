@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    use HasFactory;
+    public function regist(array $value)
+    {
+        self::query()
+        ->insert($value);
+    }
 }
