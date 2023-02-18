@@ -1,3 +1,6 @@
+build:
+	docker-compose build
+
 up:
 	docker-compose up -d
 
@@ -8,9 +11,8 @@ stop:
 	docker-compose stop
 
 app:
-	docker compose exec app bash
+	docker-compose exec app bash
 
 db:
-	docker compose exec db bash
-
+	docker-compose exec db bash
 
