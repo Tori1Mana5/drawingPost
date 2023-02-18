@@ -13,7 +13,9 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        $accountName = $request->input('account_name');
-        var_dump($accountName);
+
+        // パスワードをソルトつけてハッシュ化
+        // 保存する値を設定
     }
+
 }
