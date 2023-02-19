@@ -15,7 +15,6 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
-      - PMA_HOST=mysql
       - PMA_HOST=db
       - PMA_USER=db-user
       - PMA_PASSWORD=db-pass
@@ -38,7 +37,6 @@ services:
     image: mysql:8.0
     platform: linux/amd64
     container_name: db
-
     environment:
       - MYSQL_DATABASE=${DB_NAME:-database}
       - MYSQL_USER=${DB_USER:-db-user}
