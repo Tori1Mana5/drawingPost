@@ -18,7 +18,7 @@ class PostFactory extends Factory
     {
         return [
             'body' => fake()->text(),
-            'user_id' => rand(1, 10),
+            'user_id' => fake()->randomDigit(),
         ];
     }
 }
