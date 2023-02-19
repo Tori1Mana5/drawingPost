@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('user')->insert([
+        DB::table('users')->insert([
             'username' => Str::random(10),
             'display_name' => Str::random(5),
             'email' => Str::random(10) . 'gmail.com',
