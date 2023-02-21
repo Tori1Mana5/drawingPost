@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -13,12 +14,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
-            $table->increments('image_id');
-            $table->ipAddress('image_name', 50);
-            $table->ipAddress('post_id', 255);
-            $table->ipAddress('path', 255);
-            $table->dateTime('created_at')->useCurrent();
+        Schema::create('posts', function (Blueprint $table) {
+            $table->id();
+            $table->text('body')->nullable();
+            $table->foreignIdFor(User::class);
+            $table->timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('posts');
     }
 };
