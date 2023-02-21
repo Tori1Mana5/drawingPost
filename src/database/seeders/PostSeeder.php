@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use \App\Models\Post;
 
 class PostSeeder extends Seeder
 {
@@ -14,8 +15,6 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            'body' => Str::random(140),
-        ]);
+        Post::factory()->count(10)->create();
     }
 }

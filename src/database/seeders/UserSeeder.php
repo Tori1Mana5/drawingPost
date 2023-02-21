@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use \App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -14,11 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'username' => Str::random(10),
-            'display_name' => Str::random(5),
-            'email' => Str::random(10) . 'gmail.com',
-            'password' => Hash::make('password'),
-        ]);
+        User::factory()->count(10)->create();
     }
 }
