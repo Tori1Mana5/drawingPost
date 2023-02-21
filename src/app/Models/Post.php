@@ -7,20 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    /**
-     * setting primaryKey for posts table
-     * 
-     * @var string
-     */
-    protected $primaryKey = 'post_id';
-
-    // public function get()
-    // {
-
-    // }
-
-    public function post(array $data)
+    public function get()
     {
-        self::insert($data);
+        return self::query()
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->get();
     }
+
 }
