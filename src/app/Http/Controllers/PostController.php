@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
-    public function get()
+    public function index()
     {
-        $postModel = new Post();
-        return view('home', ['posts' => $postModel->get()]);
+        $posts = Post::with('user')->get();
+        return view('home', ['posts' => $posts]);
     }
 }

@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    public function regist(array $value)
+    public function posts()
     {
-        self::query()
-        ->insert($value);
+        return $this->hasMany(Post::class);
     }
 }

@@ -7,11 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    public function get()
+    public function user()
     {
-        return self::query()
-        ->join('users', 'posts.user_id', '=', 'users.id')
-        ->get();
+        return $this->belongsTo(User::class);
     }
-
 }
