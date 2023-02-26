@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $fillable = ['body', 'user_id'];
+
     use HasFactory;
     public function user()
     {
