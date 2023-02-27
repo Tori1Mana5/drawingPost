@@ -8,7 +8,7 @@
 <body>
 	<form method="POST" action="{{ route('post.store') }}">
 		@csrf
-		作品説明: <input type="text" name="body">
+		作品説明: <input type="text" name="body" value="{{ old('body') }}">
 		@error('body')
 			<div>{{ $message }}</div>
 		@enderror

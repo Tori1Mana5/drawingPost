@@ -5,6 +5,7 @@
 	</head>
 	<body>
 		<h2>投稿一覧</h2>
+		<a href="{{ route('post.create') }}">投稿する</a>
 		<div>
 			@foreach($posts as $post)
 			<p>アカウント名: {{ $post->id }}</p>
