@@ -22,11 +22,20 @@ class PostController extends Controller
 
     public function store(PostStoreRequest $request)
     {
+        if ($request->input('back')) {
+            return redirect()->route('post.create')->withInput();
+        }
+
         Post::create([
             'body' => $request->input('body'),
             'user_id' => 1,
         ]);
 
-        return redirect()->route('post');
+        return redirect()->route('post')->with('message', '投稿完了しました');
+    }
+
+    public function confirm(PostStoreRequest $request)
+    {
+        return view('posts.confirm', ['body' => $request->input('body')]);
     }
 }
