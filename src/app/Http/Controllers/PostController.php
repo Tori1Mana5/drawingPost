@@ -31,11 +31,12 @@ class PostController extends Controller
             'user_id' => 1,
         ]);
 
-        return redirect()->route('post')->with('message', '投稿完了しました');
+        return redirect()->route('post')->with('success', '投稿完了しました');
     }
 
     public function confirm(PostStoreRequest $request)
     {
-        return view('posts.confirm', ['body' => $request->input('body')]);
+        $body = $request->input('body');
+        return view('posts.confirm', ['body' => $body]);
     }
 }
