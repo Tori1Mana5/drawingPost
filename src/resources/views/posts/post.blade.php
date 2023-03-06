@@ -6,13 +6,14 @@
 	<title>投稿画面</title>
 </head>
 <body>
-	<form method="POST" action="{{ route('post.store') }}">
+	<form method="POST" action="{{ route('post.confirm') }}">
 		@csrf
-		作品説明: <input type="text" name="body">
+		作品説明: <input type="text" name="body" value="{{ old('body') }}">
 		@error('body')
 			<div>{{ $message }}</div>
 		@enderror
-		<input type="submit" value="登録">
+		<button type="submit">確認する</button>
 	</form>
+	<a href="{{ route('post') }}">一覧画面に戻る</a>
 </body>
 </html>
