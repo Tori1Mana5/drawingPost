@@ -20,13 +20,25 @@ class PostController extends Controller
         return view('posts/post');
     }
 
-    public function store(PostStoreRequest $request)
+    public function complete()
     {
+        $body = old('body');
+
+        if (is_null($body)) {
+            return redirect()->route('post.create');
+        }
+
         Post::create([
-            'body' => $request->input('body'),
+            'body' => $body,
             'user_id' => 1,
         ]);
 
-        return redirect()->route('post');
+        return redirect()->route('post')->with('success', '投稿完了しました');
+    }
+
+    public function confirm(PostStoreRequest $request)
+    {
+        $request->flash();
+        return view('posts.confirm');
     }
 }
