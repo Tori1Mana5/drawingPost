@@ -5,15 +5,15 @@
 	</head>
 	<body>
 		<h2>投稿一覧</h2>
-		@if (session('message'))
+		@if (session('success'))
 			<div>
-				{{ session('message') }}
+				{{ session('success') }}
 			</div>
 		@endif
-		<a href="{{ route('post.create') }}">投稿する</a>
+		{{ link_to_route('post.create', $title = "投稿する") }}
 		<div>
 			@foreach($posts as $post)
-			<p>アカウント名: {{ $post->id }}</p>
+			<p>アカウント名: {{ $post->display_name }}</p>
 			<p>ユーザー名: {{ $post->username }}</p>
 			<p>投稿内容: {{ $post->body }}</p>
 			@endforeach
