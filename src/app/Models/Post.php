@@ -9,6 +9,8 @@ class Post extends Model
 {
     protected $fillable = ['body', 'user_id'];
 
+    protected $hidden = ['email', 'password'];
+
     use HasFactory;
     public function user()
     {
