@@ -9,8 +9,8 @@
 作品説明: 
 	{{ Form::open(['route' => 'post.confirm']) }}
 		{{ Form::token() }}
-		{{ Form::text('body', old('body')) }}
-		@error('body')
+		{{ Form::text('body[]', old('body.0')) }}
+		@error('body.0')
 			<div>{{ $message }}</div>
 		@enderror
 		{{ Form::button('確認する', ['type' => 'submit']) }}

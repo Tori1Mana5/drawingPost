@@ -7,7 +7,7 @@
 </head>
 <body>
 	<p>この内容で投稿していいですか？<p>
-	作品説明: {{ Form::old('body') }}
+	作品説明: {{ old('body.0') }}
 	<br>
 	{{ link_to_route('post.create', $title = "修正する") }}
 	{{ link_to_route('post.complete', $title = "登録") }}

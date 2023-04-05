@@ -30,7 +30,7 @@ class PostController extends Controller
         }
 
         Post::create([
-            'body' => $body,
+            'body' => $body[0],
             'user_id' => 1,
         ]);
 
