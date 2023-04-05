@@ -13,8 +13,8 @@
 		{{ link_to_route('post.create', $title = "投稿する") }}
 		<div>
 			@foreach($posts as $post)
-			<p>アカウント名: {{ $post['user']->username }}</p>
-			<p>ユーザー名: {{ $post['user']->display_name }}</p>
+			<p>アカウント名: {{ $post->user->username }}</p>
+			<p>ユーザー名: {{ $post->user->display_name }}</p>
 			<p>投稿内容: {{ $post->body }}</p>
 			@endforeach
 		</div>
