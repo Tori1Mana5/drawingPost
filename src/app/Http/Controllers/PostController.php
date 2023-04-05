@@ -11,9 +11,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user')->get()->toArray();
-
-        dd($posts);exit();
+        $posts = Post::with('user')->get();
 
         return view('posts/index', ['posts' => $posts]);
     }
