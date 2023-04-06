@@ -7,15 +7,9 @@
 </head>
 <body>
 	<p>この内容で投稿していいですか？<p>
-	<form method="POST" action="{{ route('post.store') }}">
-		@csrf
-		作品説明: <input type="text" name="body" value="{{ $body }}" readonly>
-		@error('body')
-			<div>{{ $message }}</div>
-		@enderror
-		<br>
-		<button type="submit" name="back" value="back">修正する</button>
-		<button type="submit">登録</button>
-	</form>
+	作品説明: {{ old('body.0') }}
+	<br>
+	{{ link_to_route('post.create', $title = "修正する") }}
+	{{ link_to_route('post.complete', $title = "登録") }}
 </body>
 </html>
