@@ -7,18 +7,30 @@
 </head>
 <body>
 	<h2>アカウント新規登録</h2>
-	<form action="/account/register/confirm" method="post">
-		{{ csrf_field() }}
-		<div>
-			アカウント名: <input type="text" name="account_name"><br>
-			ニックネーム: <input type="text" name="nickname"><br>
-			パスワード: <input type="password" name="password"><br>
-			メールアドレス: <input type="email" name="mail_address"><br>
-		</div>
-		<div>
-				<input type="submit" value="登録">
-		</div>
-	</form>
-
+	{{ Form::open(['route' => 'user.complete']) }}
+		{{ Form::token() }}
+			ユーザID: {{ Form::text('body[]', old('body.0')) }}
+			<br>
+			@error('body.0')
+				<div>{{ $message }}</div>
+			@enderror
+			ニックネーム: {{ Form::text('body[]', old('body.1')) }}
+			<br>
+			@error('body.1')
+				<div>{{ $message }}</div>
+			@enderror
+			メールアドレス: {{ Form::text('body[]', old('body.2')) }}
+			<br>
+			@error('body.2')
+				<div>{{ $message }}</div>
+			@enderror
+			パスワード: {{ Form::password('body[]') }}
+			<br>
+			@error('body.3')
+				<div>{{ $message }}</div>
+			@enderror
+			{{ Form::button('登録', ['type' => 'submit']) }}
+		{{ Form::close() }}
+		{{ link_to_route('post', $title = "一覧画面に戻る") }}
 </body>
 </html>

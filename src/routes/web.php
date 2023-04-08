@@ -10,5 +10,4 @@ Route::get('/posts/complete', [PostController::class, 'complete'])->name('post.c
 Route::post('/posts/confirm', [PostController::class, 'confirm'])->name('post.confirm');
 
 Route::get('/user/regist', [UserController::class, 'regist'])->name('user.regist');
-Route::get('/user/regist/confirm', [UserController::class, 'confirm'])->name('user.confirm');
-Route::get('/user/regist/complete', [UserController::class, 'complete'])->name('user.complete');
+Route::post('/user/regist/complete', [UserController::class, 'complete'])->name('user.complete');

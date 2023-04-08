@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRegistRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -11,13 +14,17 @@ class UserController extends Controller
         return view('user/regist');
     }
 
-    public function confirm()
+    public function complete(UserRegistRequest $request)
     {
-        return view('user/confirm');
-    }
+        $body = $request->input('body');
 
-    public function complete()
-    {
+        User::create([
+            'username' => $body[0],
+            'display_name' => $body[1],
+            'email' => $body[2],
+            'password' => Hash::make($body[3])
+        ]);
+
         return view('user/complete');
     }
 }
