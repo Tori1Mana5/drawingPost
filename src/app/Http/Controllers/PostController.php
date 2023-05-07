@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
