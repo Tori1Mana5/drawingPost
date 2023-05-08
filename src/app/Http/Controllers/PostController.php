@@ -12,6 +12,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->get();
+
         return view('posts/index', ['posts' => $posts]);
     }
 
@@ -20,14 +21,16 @@ class PostController extends Controller
         return view('posts/post');
     }
 
-    public function store(PostStoreRequest $request)
+    public function complete()
     {
-        if ($request->input('back')) {
-            return redirect()->route('post.create')->withInput();
+        $body = old('body');
+
+        if (is_null($body)) {
+            return redirect()->route('post.create');
         }
 
         Post::create([
-            'body' => $request->input('body'),
+            'body' => $body[0],
             'user_id' => 1,
         ]);
 
@@ -36,7 +39,7 @@ class PostController extends Controller
 
     public function confirm(PostStoreRequest $request)
     {
-        $body = $request->input('body');
-        return view('posts.confirm', ['body' => $body]);
+        $request->flash();
+        return view('posts.confirm');
     }
 }

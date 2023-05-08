@@ -6,14 +6,15 @@
 	<title>投稿画面</title>
 </head>
 <body>
-	<form method="POST" action="{{ route('post.confirm') }}">
-		@csrf
-		作品説明: <input type="text" name="body" value="{{ old('body') }}">
-		@error('body')
+作品説明: 
+	{{ Form::open(['route' => 'post.confirm']) }}
+		{{ Form::token() }}
+		{{ Form::text('body[]', old('body.0')) }}
+		@error('body.0')
 			<div>{{ $message }}</div>
 		@enderror
-		<button type="submit">確認する</button>
-	</form>
-	<a href="{{ route('post') }}">一覧画面に戻る</a>
+		{{ Form::button('確認する', ['type' => 'submit']) }}
+	{{ Form::close() }}
+	{{ link_to_route('post', $title = "一覧画面に戻る") }}
 </body>
 </html>
