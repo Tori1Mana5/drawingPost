@@ -5,5 +5,5 @@ use App\Http\Controllers\PostController;
 
 Route::get('/posts', [PostController::class, 'index'])->name('post');
 Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
-Route::get('/posts/complete', [PostController::class, 'complete'])->name('post.complete');
-Route::post('/posts/confirm', [PostController::class, 'confirm'])->name('post.confirm');
+Route::post('/posts/complete', [PostController::class, 'complete'])->name('post.complete');
+

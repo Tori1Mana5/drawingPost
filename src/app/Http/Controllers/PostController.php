@@ -21,25 +21,21 @@ class PostController extends Controller
         return view('posts/post');
     }
 
-    public function complete()
+    public function complete(PostStoreRequest $request)
     {
-        $body = old('body');
-
-        if (is_null($body)) {
-            return redirect()->route('post.create');
+        $text = $request->input('body.0');
+        $image_path = null;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $image_path = $request->file('image')->store('public/images');
         }
 
         Post::create([
-            'body' => $body[0],
+            'body' => $text,
+            'image' => $image_path,
             'user_id' => 1,
         ]);
 
         return redirect()->route('post')->with('success', '投稿完了しました');
     }
 
-    public function confirm(PostStoreRequest $request)
-    {
-        $request->flash();
-        return view('posts.confirm');
-    }
 }

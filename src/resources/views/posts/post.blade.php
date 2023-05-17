@@ -6,15 +6,18 @@
 	<title>投稿画面</title>
 </head>
 <body>
-作品説明: 
-	{{ Form::open(['route' => 'post.confirm']) }}
-		{{ Form::token() }}
-		{{ Form::text('body[]', old('body.0')) }}
-		@error('body.0')
-			<div>{{ $message }}</div>
-		@enderror
-		{{ Form::button('確認する', ['type' => 'submit']) }}
-	{{ Form::close() }}
 	{{ link_to_route('post', $title = "一覧画面に戻る") }}
+	<br>
+	@error('body.0')
+			{{ $message }}
+	@enderror
+	{{ Form::open(['route' => 'post.complete', 'files' => true]) }}
+		{{ Form::token() }}
+		作品説明: {{ Form::text('body[]', old('body.0')) }}
+		<br>
+		作品: {{ Form::file('image') }}
+		<br>
+		{{ Form::button('投稿', ['type' => 'submit']) }}
+	{{ Form::close() }}
 </body>
 </html>
