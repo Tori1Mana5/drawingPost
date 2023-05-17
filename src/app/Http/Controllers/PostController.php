@@ -33,7 +33,7 @@ class PostController extends Controller
         Post::create([
             'body' => $text,
             'image' => $image_path,
-            'user_id' => 1,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('post')->with('success', '投稿完了しました');
