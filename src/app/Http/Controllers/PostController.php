@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PostStoreRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 
