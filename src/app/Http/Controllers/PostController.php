@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PostStoreRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 
@@ -31,7 +32,7 @@ class PostController extends Controller
 
         Post::create([
             'body' => $body[0],
-            'user_id' => 1,
+            'user_id' => Auth::id(),
         ]);
 
         return redirect()->route('post')->with('success', '投稿完了しました');

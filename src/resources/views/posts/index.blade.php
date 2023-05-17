@@ -10,7 +10,12 @@
 				{{ session('success') }}
 			</div>
 		@endif
-		{{ link_to_route('post.create', $title = "投稿する") }}
+		@can('isLogin')
+			{{ link_to_route('post.create', $title = "投稿する") }}
+			{{ link_to_route('user.logout', $title = "ログアウト") }}
+		@else
+			{{ link_to_route('user.login', $title = "ログイン") }}
+		@endcan
 		<div>
 			@foreach($posts as $post)
 			<p>アカウント名: {{ $post->user->username }}</p>
