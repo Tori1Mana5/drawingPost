@@ -21,6 +21,9 @@
 			<p>アカウント名: {{ $post->user->username }}</p>
 			<p>ユーザー名: {{ $post->user->display_name }}</p>
 			<p>投稿内容: {{ $post->body }}</p>
+			@if (!is_null($post->image))
+				<img src="{{ asset(Storage::url($post->image)) }}">
+			@endif
 			@endforeach
 		</div>
 	</body>
