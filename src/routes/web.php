@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -17,4 +18,4 @@ Route::get('/user/regist', [UserController::class, 'regist'])->name('user.regist
 Route::post('/user/regist/complete', [UserController::class, 'complete'])->name('user.complete');
 Route::get('/user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('/user/authenticate', [LoginController::class, 'authenticate'])->name('user.authenticate');
-Route::get('/user/{user_name}', [UserController::class, 'show'])->name('user.show');
+Route::get('/profile/{user_name}', [ProfileController::class, 'show'])->name('profile.show');
