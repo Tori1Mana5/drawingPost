@@ -13,10 +13,8 @@
 	@enderror
 	{{ Form::open(['route' => 'post.complete', 'files' => true]) }}
 		{{ Form::token() }}
-		作品説明: {{ Form::text('body[]', old('body.0')) }}
-		<br>
-		作品: {{ Form::file('image') }}
-		<br>
+		<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
+		<p>作品: {{ Form::file('image') }}</p>
 		{{ Form::button('投稿', ['type' => 'submit']) }}
 	{{ Form::close() }}
 </body>

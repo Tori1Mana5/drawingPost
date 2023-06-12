@@ -17,9 +17,9 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('profile')->nullable();
-            $table->string('profile_image')->nullable();
-            $table->string('profile_background_image')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->string('profile_icon')->nullable();
+            $table->string('profile_background')->nullable();
+            $table->foreignIdFor(User::class)->unique();
             $table->timestamps();
         });
     }

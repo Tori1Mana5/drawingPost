@@ -19,3 +19,5 @@ Route::post('/user/regist/complete', [UserController::class, 'complete'])->name(
 Route::get('/user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('/user/authenticate', [LoginController::class, 'authenticate'])->name('user.authenticate');
 Route::get('/profile/{user_name}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/profile/{user_name}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/{user_name}/edit/complete/', [ProfileController::class, 'complete'])->name('profile.complete');
