@@ -6,7 +6,7 @@
 	<title>{{ $user_name }}</title>
 </head>
 <body>
-    @can('isLogin')
+    @can ('isLogin')
 		{{ link_to_route('post.create', $title = "投稿する") }}
 		{{ link_to_route('user.logout', $title = "ログアウト") }}
 	@else
@@ -17,7 +17,7 @@
         <h2>
             プロフィール
         </h2>
-        @foreach($profiles as $profile)
+        @foreach ($profiles as $profile)
             <h3>
                 {{ $profile->user->username }}
             </h3>
@@ -28,7 +28,7 @@
     </div>
     <hr>
     <div>
-        @foreach($posts as $post)
+        @foreach ($posts as $post)
         <p>
             アカウント名: {{ link_to_route('profile.show', $title = $post->user->username, $parameters =[$post->user->username]) }}
         </p>
@@ -42,5 +42,6 @@
 			<img src="{{ asset(Storage::url($post->image)) }}">
 		@endif
 		@endforeach
-    </div>        
+    </div>
+</body>
 </html>

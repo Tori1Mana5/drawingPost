@@ -10,6 +10,14 @@
         プロフィール
     </h2>
     {{ link_to_route('post', '一覧画面に戻る') }}
+    <br>
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
     {{ Form::open(['route' => ['profile.complete', $user_name], 'files' => true]) }}
         {{ Form::token() }}
         <p>プロフィール: {{ Form::text('body[]', old('body.0')) }}</p>

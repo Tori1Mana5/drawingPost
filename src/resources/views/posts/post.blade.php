@@ -8,9 +8,13 @@
 <body>
 	{{ link_to_route('post', $title = "一覧画面に戻る") }}
 	<br>
-	@error('body.0')
-			{{ $message }}
-	@enderror
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 	{{ Form::open(['route' => 'post.complete', 'files' => true]) }}
 		{{ Form::token() }}
 		<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
