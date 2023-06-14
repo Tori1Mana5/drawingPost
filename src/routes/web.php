@@ -12,12 +12,12 @@ Route::middleware(['can:isLogin'])->group(function () {
     Route::get('/posts/create', [PostController::class, 'create'])->name('post.create');
     Route::post('/posts/complete', [PostController::class, 'complete'])->name('post.complete');
     Route::get('/user/logout', [LogoutController::class, 'logout'])->name('user.logout');
+    Route::get('/profile/{user_name}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/{user_name}/edit/complete/', [ProfileController::class, 'complete'])->name('profile.complete');
 });
 Route::get('/posts', [PostController::class, 'index'])->name('post');
-Route::get('/user/regist', [UserController::class, 'regist'])->name('user.regist');
-Route::post('/user/regist/complete', [UserController::class, 'complete'])->name('user.complete');
+Route::get('/user/register', [UserController::class, 'register'])->name('user.register');
+Route::post('/user/register/complete', [UserController::class, 'complete'])->name('user.complete');
 Route::get('/user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('/user/authenticate', [LoginController::class, 'authenticate'])->name('user.authenticate');
 Route::get('/profile/{user_name}', [ProfileController::class, 'show'])->name('profile.show');
-Route::get('/profile/{user_name}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/profile/{user_name}/edit/complete/', [ProfileController::class, 'complete'])->name('profile.complete');

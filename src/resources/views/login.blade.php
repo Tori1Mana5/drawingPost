@@ -7,7 +7,7 @@
 </head>
 <body>
     {{ link_to_route('post', $title = "一覧画面に戻る")}}
-    {{ link_to_route('user.regist', $title = "アカウント登録") }}
+    {{ link_to_route('user.register', $title = "アカウント登録") }}
     <h2>ログイン</h2>
     {{ Form::open(['route' => 'user.authenticate']) }}
     {{ Form::token() }}
