@@ -24,7 +24,8 @@ class PostStoreRequest extends FormRequest
     public function rules()
     {
         return [
-           'body.0' => ['required_without:image', 'max:140']
+            'body.0' => ['required_without:image', 'max:140'],
+            'image' => ['file', 'image:jpg,jpeg,png,gif']
         ];
     }
 }

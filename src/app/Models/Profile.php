@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $fillable = ['profile', 'profile_icon', 'profile_background'];
+    protected $fillable = ['profile', 'profile_icon', 'profile_background', 'user_id'];
 
     use HasFactory;
 
