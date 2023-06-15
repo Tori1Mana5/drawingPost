@@ -19,10 +19,6 @@ class ProfileController extends Controller
             $query->where('username', $user_name);
         })->get();
 
-        if ($posts->isEmpty()) {
-            return redirect()->route('post');
-        }
-
         return view('profile/show', ['posts' => $posts, 'profiles' => $profiles, 'user_name' => $user_name]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 
@@ -17,11 +18,9 @@ class ProfileFactory extends Factory
      */
     public function definition()
     {
-        $user_id = User::all()->random(1)[0]->id;
-
         return [
             'profile' => fake()->realText(100),
-            'user_id' => $user_id,
+            'user_id' => fake()->unique()->numberBetween(1, User::count()),
         ];
     }
 }
