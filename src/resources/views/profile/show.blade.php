@@ -9,6 +9,8 @@
     @can ('isLogin')
 		{{ link_to_route('post.create', $title = "投稿する") }}
 		{{ link_to_route('user.logout', $title = "ログアウト") }}
+        {{ link_to_route('profile.register', $title = "プロフィール登録", $parameters = ['user_name' => $user_name])  }}
+        {{ link_to_route('profile.edit', $title = "プロフィール編集", $parameters = ['user_name' => $user_name]) }}
 	@else
 		{{ link_to_route('user.login', $title = "ログイン") }}
 	@endcan
@@ -30,7 +32,7 @@
     <div>
         @foreach ($posts as $post)
         <p>
-            アカウント名: {{ link_to_route('profile.show', $title = $post->user->username, $parameters =[$post->user->username]) }}
+            アカウント名: {{ link_to_route('profile.show', $title = $post->user->username, $parameters = [$post->user->username]) }}
         </p>
 		<p>
             ユーザー名: {{ $post->user->display_name }}
@@ -39,7 +41,7 @@
             投稿内容: {{ $post->body }}
         </p>
 		@if (!is_null($post->image))
-			<img src="{{ asset(Storage::url($post->image)) }}">
+                <img src="{{ asset(Storage::url($post->image)) }}">
 		@endif
 		@endforeach
     </div>
