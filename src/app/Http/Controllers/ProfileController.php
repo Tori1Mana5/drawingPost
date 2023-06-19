@@ -7,6 +7,7 @@ use App\Http\Requests\ProfileRequest;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use \Illuminate\Http\RedirectResponse;
 
@@ -88,13 +89,14 @@ class ProfileController extends Controller
      */
     public function edit(string $user_name)
     {
-        $profiles = Profile::withWhereHas('user', function ($query) use ($user_name) {
+        $profile = Profile::withWhereHas('user', function ($query) use ($user_name) {
             $query->where('username', $user_name);
-        })->get();
+        })->get()->all()[0];
 
-        var_dump($profiles->all());exit();
+        session()->flash('icon', $profile['profile_icon']);
+        session()->flash('background', $profile['profile_background']);
 
-        return view('profile/edit', ['user_name' => $user_name, 'profiles' => $profiles]);
+        return view('profile/edit', ['user_name' => $user_name, 'profile' => $profile]);
     }
 
     public function editComplete(string $user_name, ProfileRequest $request)
@@ -111,15 +113,29 @@ class ProfileController extends Controller
             $check_icon = $request->file('profile_image.0');
             $check_profile_background = $request->file('profile_image.1');
 
-            // アイコンがアップロードされていることとアップロードが問題ないことをチェック
-            if (!is_null($check_icon) && $check_icon->isValid()) {
-                $profile_icon = $check_icon->store('public/profile/icon');
+            // プロフィールアイコンがアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
+            if (is_null($check_icon) || !$check_icon->isValid()) {
+               redirect()->route('profile.edit', ['user_name' => $user_name]);
             }
 
-            // プロフィール背景がアップロードされていることとアップロードが問題ないことをチェック
-            if (!is_null($check_profile_background) && $check_profile_background->isValid()) {
-                $profile_background = $check_profile_background->store('public/profile/background');
+            // プロフィール背景がアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
+            if (is_null($check_profile_background) || $check_profile_background->isValid()) {
+                redirect()->route('profile.edit', ['user_name' => $user_name]);
             }
+
+            // 編集前のアイコン画像ファイルがある場合は削除
+            if (!is_null(session('icon'))) {
+                Storage::delete(session('icon'));
+            }
+
+            // 編集前の背景画像ファイルがある場合は削除
+            if (!is_null(session('background'))) {
+                Storage::delete(session('background'));
+            }
+
+            $profile_icon = $check_icon->store('public/profile/icon');
+            $profile_background = $check_profile_background->store('public/profile/background');
+
         }
 
         Profile::where('user_id', $user_id)
