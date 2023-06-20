@@ -28,7 +28,10 @@ class ProfileController extends Controller
             $query->where('username', $user_name);
         })->get();
 
-        return view('profile/show', ['posts' => $posts, 'profiles' => $profiles, 'user_name' => $user_name]);
+        // プロフィールのレコードがある場合は配列形式に変換、ない場合はnullで返す
+        $profile = !empty($profiles) ? $profiles->all()[0] : null;
+
+        return view('profile/show', ['posts' => $posts, 'profile' => $profile, 'user_name' => $user_name]);
     }
 
     /**
