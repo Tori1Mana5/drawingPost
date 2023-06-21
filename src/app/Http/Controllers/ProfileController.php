@@ -158,8 +158,8 @@ class ProfileController extends Controller
         Profile::where('user_id', $user_id)
             ->update([
                 'profile' => $body,
-                'profile_icon' => $profile_icon,
-                'profile_background' => $profile_background,
+                'profile_icon' => is_null($profile_icon) ? session('icon') : $profile_icon,
+                'profile_background' => is_null($profile_background) ? session('background') : $profile_background,
             ]);
 
         return redirect()->route('profile.show', ['user_name' => $user_name]);
