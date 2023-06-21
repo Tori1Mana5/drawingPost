@@ -6,10 +6,13 @@ use App\Models\Profile;
 use App\Http\Requests\ProfileRequest;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use \Illuminate\Http\RedirectResponse;
+use function PHPUnit\Framework\isEmpty;
 
 class ProfileController extends Controller
 {
@@ -29,7 +32,7 @@ class ProfileController extends Controller
         })->get();
 
         // プロフィールのレコードがある場合は配列形式に変換、ない場合はnullで返す
-        $profile = !empty($profiles) ? $profiles->all()[0] : null;
+        $profile = $profiles->isEmpty() ? null : $profiles->all()[0];
 
         return view('profile/show', ['posts' => $posts, 'profile' => $profile, 'user_name' => $user_name]);
     }
@@ -41,6 +44,9 @@ class ProfileController extends Controller
      */
     public function register(string $user_name): View
     {
+        if (!Gate::allows('register-profile', $user_name)) {
+            abort(403);
+        }
         return view('profile/register', ['user_name' => $user_name]);
     }
 
@@ -53,8 +59,6 @@ class ProfileController extends Controller
     public function storeComplete(string $user_name, ProfileRequest $request): RedirectResponse
     {
         $body = $request->input('body.0');
-        // プロフィールを紐付けるためにUserからidを取得
-        $user_id = User::where('username', $user_name)->value('id');
 
         $profile_icon = null;
         $profile_background = null;
@@ -75,12 +79,18 @@ class ProfileController extends Controller
             }
         }
 
-        Profile::create([
-            'profile' => $body,
+        $profile = new Profile([
+            'profile' =>  $body,
             'profile_icon' => $profile_icon,
             'profile_background' => $profile_background,
-            'user_id' => $user_id
         ]);
+
+        // プロフィールを紐付けるためにUserからidを取得
+        $user_id = User::where('username', $user_name)->value('id');
+        $user = User::find($user_id);
+
+        // 指定したユーザーに紐づけてプロフィールを登録
+        $user->profile()->save($profile);
 
         return redirect()->route('profile.show', ['user_name' => $user_name]);
     }
@@ -92,6 +102,10 @@ class ProfileController extends Controller
      */
     public function edit(string $user_name)
     {
+        // 他のユーザーのプロフィールを編集する場合は処理を終了する
+        if (!Gate::allows('edit-profile', $user_name)) {
+            abort(403);
+        }
         $profile = Profile::withWhereHas('user', function ($query) use ($user_name) {
             $query->where('username', $user_name);
         })->get()->all()[0];

@@ -8,10 +8,13 @@
 <body>
     @can ('isLogin')
 		{{ link_to_route('post.create', $title = "投稿する") }}
-		{{ link_to_route('user.logout', $title = "ログアウト") }}
-        {{ link_to_route('profile.register', $title = "プロフィール登録", $parameters = ['user_name' => $user_name])  }}
-        {{ link_to_route('profile.edit', $title = "プロフィール編集", $parameters = ['user_name' => $user_name]) }}
-	@else
+        @can ('edit-profile', $user_name)
+            {{ link_to_route('profile.edit', $title = "プロフィール編集", $parameters = ['user_name' => auth()->user()->username]) }}
+        @elsecan ('register-profile', $user_name)
+            {{ link_to_route('profile.register', $title = "プロフィール登録", $parameters = ['user_name' => auth()->user()->username])  }}
+        @endcan
+        {{ link_to_route('user.logout', $title = "ログアウト") }}
+    @else
 		{{ link_to_route('user.login', $title = "ログイン") }}
 	@endcan
     {{ link_to_route('post', $title = "一覧画面に戻る") }}
@@ -19,14 +22,14 @@
         <h2>
             プロフィール
         </h2>
-        @foreach ($profiles as $profile)
+        @if (!is_null($profile))
             <h3>
-                {{ $profile->user->username }}
+                {{ $profile['user']['username'] }}
             </h3>
             <p>
-                {{ $profile->profile }}
+                {{ $profile['profile'] }}
             </p>
-        @endforeach
+        @endif
     </div>
     <hr>
     <div>
