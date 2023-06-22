@@ -18,45 +18,45 @@ class ProfileController extends Controller
 {
     /**
      * プロフィール画面を表示
-     * @param string $user_name
+     * @param string $userName
      * @return View
      */
-    public function show(string $user_name): View
+    public function show(string $userName): View
     {
-        $posts = Post::withWhereHas('user', function ($query) use ($user_name) {
-            $query->where('username', $user_name);
+        $posts = Post::withWhereHas('user', function ($query) use ($userName) {
+            $query->where('username', $userName);
         })->get();
 
-        $profiles = Profile::withWhereHas('user', function ($query) use ($user_name) {
-            $query->where('username', $user_name);
+        $profiles = Profile::withWhereHas('user', function ($query) use ($userName) {
+            $query->where('username', $userName);
         })->get();
 
         // プロフィールのレコードがある場合は配列形式に変換、ない場合はnullで返す
         $profile = $profiles->isEmpty() ? null : $profiles->all()[0];
 
-        return view('profile/show', ['posts' => $posts, 'profile' => $profile, 'user_name' => $user_name]);
+        return view('profile/show', ['posts' => $posts, 'profile' => $profile, 'userName' => $userName]);
     }
 
     /**
      * プロフィール登録画面を表示
-     * @param string $user_name
+     * @param string $userName
      * @return View
      */
-    public function register(string $user_name): View
+    public function register(string $userName): View
     {
-        if (!Gate::allows('register-profile', $user_name)) {
+        if (!Gate::allows('register-profile', $userName)) {
             abort(403);
         }
-        return view('profile/register', ['user_name' => $user_name]);
+        return view('profile/register', ['userName' => $userName]);
     }
 
     /**
      * 編集画面でプロフィールを新規で登録する処理
-     * @param string $user_name
+     * @param string $userName
      * @param ProfileRequest $request
      * @return RedirectResponse
      */
-    public function storeComplete(string $user_name, ProfileRequest $request): RedirectResponse
+    public function storeComplete(string $userName, ProfileRequest $request): RedirectResponse
     {
         $body = $request->input('body.0');
 
@@ -86,41 +86,43 @@ class ProfileController extends Controller
         ]);
 
         // プロフィールを紐付けるためにUserからidを取得
-        $user_id = User::where('username', $user_name)->value('id');
-        $user = User::find($user_id);
+        $userId = User::where('username', $userName)->value('id');
+        $user = User::find($userId);
 
         // 指定したユーザーに紐づけてプロフィールを登録
         $user->profile()->save($profile);
 
-        return redirect()->route('profile.show', ['user_name' => $user_name]);
+        return redirect()->route('profile.show', ['userName' => $userName]);
     }
 
     /**
      * プロフィール編集画面を表示
-     * @param string $user_name
+     * @param string $userName
      * @return View
      */
-    public function edit(string $user_name)
+    public function edit(string $userName)
     {
         // 他のユーザーのプロフィールを編集する場合は処理を終了する
-        if (!Gate::allows('edit-profile', $user_name)) {
+        if (!Gate::allows('edit-profile', $userName)) {
             abort(403);
         }
-        $profile = Profile::withWhereHas('user', function ($query) use ($user_name) {
-            $query->where('username', $user_name);
+        $profile = Profile::withWhereHas('user', function ($query) use ($userName) {
+            $query->where('username', $userName);
         })->get()->all()[0];
 
         session()->flash('icon', $profile['profile_icon']);
         session()->flash('background', $profile['profile_background']);
 
-        return view('profile/edit', ['user_name' => $user_name, 'profile' => $profile]);
+        return view('profile/edit', ['userName' => $userName, 'profile' => $profile]);
     }
 
-    public function editComplete(string $user_name, ProfileRequest $request)
+    public function editComplete(string $userName, ProfileRequest $request)
     {
         $body = $request->input('body.0');
+        $userName = $request->input('body.1');
+
         // プロフィールを紐付けるためにUserからidを取得
-        $user_id = User::where('username', $user_name)->value('id');
+        $userId = User::where('username', $userName)->value('id');
 
         $profile_icon = null;
         $profile_background = null;
@@ -132,12 +134,12 @@ class ProfileController extends Controller
 
             // プロフィールアイコンがアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
             if (is_null($check_icon) || !$check_icon->isValid()) {
-               redirect()->route('profile.edit', ['user_name' => $user_name]);
+               redirect()->route('profile.edit', ['userName' => $userName]);
             }
 
             // プロフィール背景がアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
             if (is_null($check_profile_background) || $check_profile_background->isValid()) {
-                redirect()->route('profile.edit', ['user_name' => $user_name]);
+                redirect()->route('profile.edit', ['userName' => $userName]);
             }
 
             // 編集前のアイコン画像ファイルがある場合は削除
@@ -152,16 +154,20 @@ class ProfileController extends Controller
 
             $profile_icon = $check_icon->store('public/profile/icon');
             $profile_background = $check_profile_background->store('public/profile/background');
-
         }
 
-        Profile::where('user_id', $user_id)
+        Profile::where('user_id', $userId)
             ->update([
                 'profile' => $body,
                 'profile_icon' => is_null($profile_icon) ? session('icon') : $profile_icon,
                 'profile_background' => is_null($profile_background) ? session('background') : $profile_background,
             ]);
 
-        return redirect()->route('profile.show', ['user_name' => $user_name]);
+        User::where('user_id', $userId)
+            ->update([
+                ''
+            ]);
+
+        return redirect()->route('profile.show', ['userName' => $userName]);
     }
 }

@@ -10,7 +10,7 @@
         プロフィール
     </h2>
     {{ link_to_route('post', '一覧画面に戻る') }}
-    {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['user_name' => $user_name]) }}
+    {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}
     <br>
     @if ($errors->any())
         <ul>
@@ -19,7 +19,7 @@
             @endforeach
         </ul>
     @endif
-    {{ Form::open(['route' => ['profile.register.complete', $user_name], 'files' => true]) }}
+    {{ Form::open(['route' => ['profile.register.complete', $userName], 'files' => true]) }}
         {{ Form::token() }}
         <p>プロフィール: {{ Form::text('body[]', old('body.0')) }}</p>
         <p>アイコン画像: {{ Form::file('profile_image[]') }}</p>

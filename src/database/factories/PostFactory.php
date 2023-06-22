@@ -17,11 +17,11 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $user_id = User::all()->random(1)[0]->id;
+        $userId = User::all()->random(1)[0]->id;
 
         return [
             'body' => fake()->text(),
-            'user_id' => $user_id,
+            'user_id' => $userId,
         ];
     }
 }
