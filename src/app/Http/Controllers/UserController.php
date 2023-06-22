@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRegistRequest;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function regist()
+    public function register()
     {
-        return view('user/regist');
+        return view('user/register');
     }
 
     public function complete(UserRegistRequest $request)

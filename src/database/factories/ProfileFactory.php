@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Profile>
  */
-class PostFactory extends Factory
+class ProfileFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,11 +18,9 @@ class PostFactory extends Factory
      */
     public function definition()
     {
-        $userId = User::all()->random(1)[0]->id;
-
         return [
-            'body' => fake()->text(),
-            'user_id' => $userId,
+            'profile' => fake()->realText(100),
+            'user_id' => fake()->unique()->numberBetween(1, User::count()),
         ];
     }
 }
