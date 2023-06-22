@@ -24,8 +24,8 @@ class UserRegistRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['required'],
-            'body.1' => ['required'],
+            'body.0' => ['required', 'max:15'],
+            'body.1' => ['required', 'between:4,50'],
             'body.2' => ['required', 'email'],
             'body.3' => ['required', 'min:8'],
         ];

@@ -8,15 +8,17 @@
 <body>
 	{{ link_to_route('post', $title = "一覧画面に戻る") }}
 	<br>
-	@error('body.0')
-			{{ $message }}
-	@enderror
+    @if ($errors->any())
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 	{{ Form::open(['route' => 'post.complete', 'files' => true]) }}
 		{{ Form::token() }}
-		作品説明: {{ Form::text('body[]', old('body.0')) }}
-		<br>
-		作品: {{ Form::file('image') }}
-		<br>
+		<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
+		<p>作品: {{ Form::file('image') }}</p>
 		{{ Form::button('投稿', ['type' => 'submit']) }}
 	{{ Form::close() }}
 </body>
