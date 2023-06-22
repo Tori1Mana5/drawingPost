@@ -23,9 +23,9 @@
             プロフィール
         </h2>
         @if (!is_null($profile))
-            <h3>
+            <p>
                 {{ $profile['user']['username'] }}
-            </h3>
+            </p>
             <h3>
                 {{ $profile['user']['display_name'] }}
             </h3>

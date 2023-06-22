@@ -86,7 +86,7 @@ class ProfileController extends Controller
         ]);
 
         // プロフィールを紐付けるためにUserからidを取得
-        $userId = User::where('username', $userName)->value('id');
+        $userId = Auth::id();
         $user = User::find($userId);
 
         // 指定したユーザーに紐づけてプロフィールを登録
@@ -118,11 +118,18 @@ class ProfileController extends Controller
 
     public function editComplete(string $userName, ProfileRequest $request)
     {
-        $body = $request->input('body.0');
-        $userName = $request->input('body.1');
+        $profileData = [
+            'profile' => $request->input('body.0'),
+        ];
 
-        // プロフィールを紐付けるためにUserからidを取得
-        $userId = User::where('username', $userName)->value('id');
+        $userData = [
+            'display_name' => $request->input('body.1')
+        ];
+        $body = $request->input('body.0');
+        $displayName = $request->input('body.1');
+
+        // プロフィールを紐付けるためにidを取得
+        $userId = Auth::id();
 
         $profile_icon = null;
         $profile_background = null;
@@ -152,21 +159,16 @@ class ProfileController extends Controller
                 Storage::delete(session('background'));
             }
 
-            $profile_icon = $check_icon->store('public/profile/icon');
-            $profile_background = $check_profile_background->store('public/profile/background');
+            // プロフィール更新用の連想配列にアイコン画像のパスと背景画像のバスを追加
+            $profileData['profile_icon'] = $check_icon->store('public/profile/icon');
+            $profileData['profile_background'] = $check_profile_background->store('public/profile/background');
         }
 
         Profile::where('user_id', $userId)
-            ->update([
-                'profile' => $body,
-                'profile_icon' => is_null($profile_icon) ? session('icon') : $profile_icon,
-                'profile_background' => is_null($profile_background) ? session('background') : $profile_background,
-            ]);
+            ->update($profileData);
 
-        User::where('user_id', $userId)
-            ->update([
-                ''
-            ]);
+        User::where('id', $userId)
+            ->update($userData);
 
         return redirect()->route('profile.show', ['userName' => $userName]);
     }

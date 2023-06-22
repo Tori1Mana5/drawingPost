@@ -22,7 +22,7 @@
 {{ Form::open(['route' => ['profile.edit.complete', $userName], 'files' => true]) }}
 {{ Form::token() }}
 <p>プロフィール: {{ Form::text('body[]', old('body.0', $profile['profile'])) }}</p>
-<p>ニックネーム: {{ Form::text('body[]', old('body.1', $userName)) }}</p>
+<p>ニックネーム: {{ Form::text('body[]', old('body.1', $profile['user']['display_name'])) }}</p>
 @if (!is_null($profile['profile_icon']))
     現在のアイコン: <br>
     <img src="{{ asset(Storage::url($profile['profile_icon'])) }}">

@@ -24,7 +24,8 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['required_without:image.0, image.1', 'max:140'],
+            'body.0' => ['max:140'],
+            'body.1' => ['required', 'between:4,50']
         ];
     }
 }
