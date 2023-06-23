@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostStoreRequest extends FormRequest
+class StorePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class PostStoreRequest extends FormRequest
     {
         return [
             'body.0' => ['required_without:image', 'max:140'],
-            'image' => ['file', 'image:jpg,jpeg,png,gif']
+            'image' => ['image:jpg,jpeg,png,gif']
         ];
     }
 }

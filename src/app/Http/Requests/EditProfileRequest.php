@@ -25,7 +25,9 @@ class EditProfileRequest extends FormRequest
     {
         return [
             'body.0' => ['max:140'],
-            'body.1' => ['required', 'between:4,50']
+            'body.1' => ['required', 'between:4,50'],
+            'profile_image.0' => ['image:jpg,jpeg,png,gif'],
+            'profile_image.1' => ['image:jpg,jpeg,png,gif'],
         ];
     }
 }

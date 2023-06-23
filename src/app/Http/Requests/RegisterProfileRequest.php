@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class registerProfileRequest extends FormRequest
+class RegisterProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,8 @@ class registerProfileRequest extends FormRequest
     {
         return [
             'body.0' => ['max:140'],
+            'profile_image.0' => ['image:jpg,jpeg,png,gif'],
+            'profile_image.1' => ['image:jpg,jpeg,png,gif'],
         ];
     }
 }
