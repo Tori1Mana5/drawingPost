@@ -9,7 +9,7 @@ use App\Http\Controllers\LogoutController;
 
 // ログインした後に許可する
 Route::middleware(['can:isLogin'])->group(function () {
-    Route::get('/posts/create/', [PostController::class, 'create'])->name('post.create');
+    Route::get('/posts/create/', [PostController::class, 'store'])->name('post.create');
     Route::post('/posts/complete/', [PostController::class, 'complete'])->name('post.complete');
     Route::get('/users/logout/', [LogoutController::class, 'logout'])->name('user.logout');
     Route::get('/profiles/{userName}/register/', [ProfileController::class, 'register'])->name('profile.register');

@@ -17,7 +17,7 @@ class PostController extends Controller
         return view('posts/index', ['posts' => $posts]);
     }
 
-    public function create()
+    public function store()
     {
         return view('posts/post');
     }
