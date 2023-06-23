@@ -118,34 +118,20 @@ class ProfileController extends Controller
 
     public function editComplete(string $userName, ProfileRequest $request)
     {
+        // プロフィールを変更するために連想配列をセット
         $profileData = [
             'profile' => $request->input('body.0'),
         ];
 
+        // ニックネームを変更するために連想配列をセット
         $userData = [
             'display_name' => $request->input('body.1')
         ];
-        $body = $request->input('body.0');
-        $displayName = $request->input('body.1');
 
-        // プロフィールを紐付けるためにidを取得
-        $userId = Auth::id();
-
-        $profile_icon = null;
-        $profile_background = null;
-
-        // プロフィールアイコンとプロフィール背景がアップロードされている時にチェックする
-        if ($request->hasFile('profile_image')) {
-            $check_icon = $request->file('profile_image.0');
-            $check_profile_background = $request->file('profile_image.1');
-
-            // プロフィールアイコンがアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
-            if (is_null($check_icon) || !$check_icon->isValid()) {
-               redirect()->route('profile.edit', ['userName' => $userName]);
-            }
-
-            // プロフィール背景がアップロードされていない状態またはアップロードに問題がある場合は編集画面にリダイレクト
-            if (is_null($check_profile_background) || $check_profile_background->isValid()) {
+        // プロフィールアイコンがアップロードされている時にチェックする
+        if ($request->hasFile('profile_image.0')) {
+            // プロフィールアイコンのアップロードに問題がある場合は編集画面にリダイレクト
+            if (!$request->file('profile_image.0')->isValid()) {
                 redirect()->route('profile.edit', ['userName' => $userName]);
             }
 
@@ -154,16 +140,28 @@ class ProfileController extends Controller
                 Storage::delete(session('icon'));
             }
 
+            // プロフィール更新用の連想配列にアイコン画像のパスとを追加
+            $profileData['profile_icon'] = $request->file('profile_image.0')->store('public');
+        }
+
+        // プロフィール背景がアップロードされている時にチェックする
+        if ($request->hasFile('profile_image.1')) {
+            // プロフィール背景のアップロードに問題がある場合は編集画面にリダイレクト
+            if (!$request->file('profile_image.1')->isValid()) {
+                redirect()->route('profile.edit', ['userName' => $userName]);
+            }
+
             // 編集前の背景画像ファイルがある場合は削除
             if (!is_null(session('background'))) {
                 Storage::delete(session('background'));
             }
 
             // プロフィール更新用の連想配列にアイコン画像のパスと背景画像のバスを追加
-            $profileData['profile_icon'] = $check_icon->store('public/profile/icon');
-            $profileData['profile_background'] = $check_profile_background->store('public/profile/background');
+            $profileData['profile_background'] = $request->file('profile_image.1')->store('public');
         }
 
+        // 更新対象のユーザーを指定するためにログインユーザーのidを取得
+        $userId = Auth::id();
         Profile::where('user_id', $userId)
             ->update($profileData);
 
