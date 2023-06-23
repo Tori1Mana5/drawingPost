@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class registerProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,6 @@ class ProfileRequest extends FormRequest
     {
         return [
             'body.0' => ['max:140'],
-            'body.1' => ['required', 'between:4,50']
         ];
     }
 }
