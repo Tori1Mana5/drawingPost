@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
@@ -22,7 +22,7 @@ class PostController extends Controller
         return view('posts/post');
     }
 
-    public function complete(PostStoreRequest $request)
+    public function complete(StorePostRequest $request)
     {
         $text = $request->input('body.0');
         $image_path = null;

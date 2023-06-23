@@ -13,7 +13,7 @@ Route::middleware(['can:isLogin'])->group(function () {
     Route::post('/posts/complete/', [PostController::class, 'complete'])->name('post.complete');
     Route::get('/users/logout/', [LogoutController::class, 'logout'])->name('user.logout');
     Route::get('/profiles/{userName}/register/', [ProfileController::class, 'register'])->name('profile.register');
-    Route::post('/profiles/{userName}/register/complete/', [ProfileController::class, 'storeComplete'])->name('profile.register.complete');
+    Route::post('/profiles/{userName}/register/complete/', [ProfileController::class, 'registerComplete'])->name('profile.register.complete');
     Route::get('/profiles/{userName}/edit/', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('profiles/{userName}/edit/complete/', [ProfileController::class, 'editComplete'])->name('profile.edit.complete');
 });
