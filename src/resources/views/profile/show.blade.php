@@ -7,7 +7,7 @@
 </head>
 <body>
     @can ('isLogin')
-		{{ link_to_route('post.create', $title = "投稿する") }}
+		{{ link_to_route('post.store', $title = "投稿する") }}
         @can ('edit-profile', $userName)
             {{ link_to_route('profile.edit', $title = "プロフィール編集", $parameters = ['userName' => auth()->user()->username]) }}
         @elsecan ('register-profile', $userName)

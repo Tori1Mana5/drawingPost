@@ -118,12 +118,12 @@ class ProfileController extends Controller
 
     public function editComplete(string $userName, EditProfileRequest $request)
     {
-        // プロフィールを変更するために連想配列をセット
+        // プロフィールを更新するために連想配列をセット
         $profileData = [
             'profile' => $request->input('body.0'),
         ];
 
-        // ニックネームを変更するために連想配列をセット
+        // ニックネームを更新するために連想配列をセット
         $userData = [
             'display_name' => $request->input('body.1')
         ];
@@ -140,7 +140,7 @@ class ProfileController extends Controller
                 Storage::delete(session('icon'));
             }
 
-            // プロフィール更新用の連想配列にアイコン画像のパスとを追加
+            // プロフィール更新用の連想配列にアイコン画像のパスを追加
             $profileData['profile_icon'] = $request->file('profile_image.0')->store('public');
         }
 
