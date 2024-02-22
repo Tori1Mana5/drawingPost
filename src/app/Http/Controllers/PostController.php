@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EditPostRequest;
-use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
