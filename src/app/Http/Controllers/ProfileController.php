@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\registerProfileRequest;
+use App\Http\Requests\RegisterProfileRequest;
 use App\Models\Post;
 use App\Models\Profile;
 use App\Http\Requests\EditProfileRequest;
