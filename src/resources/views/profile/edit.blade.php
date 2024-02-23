@@ -23,15 +23,15 @@
 {{ Form::token() }}
 <p>プロフィール: {{ Form::text('body[]', old('body.0', $profile['profile'])) }}</p>
 <p>ニックネーム: {{ Form::text('body[]', old('body.1', $profile['user']['display_name'])) }}</p>
-@if (!is_null($profile['profile_icon']))
+@isset ($profile['profile_icon'])
     現在のアイコン: <br>
     <img src="{{ asset(Storage::url($profile['profile_icon'])) }}">
-@endif
+@endisset
 <p>変更するアイコン画像: {{ Form::file('profile_image[]') }}</p>
-@if (!is_null($profile['profile_background']))
+@isset ($profile['profile_background'])
     現在の背景: <br>
     <img src="{{ asset(Storage::url($profile['profile_background'])) }}">
-@endif
+@endisset
 <p>変更する背景画像: {{ Form::file('profile_image[]') }}</p>
 {{ Form::button('編集', ['type' => 'submit']) }}
 {{ Form::close() }}
