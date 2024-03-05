@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\PasswordController;
 
 // ログインした後に許可する
 Route::middleware(['can:isLogin'])->group(function () {
@@ -35,6 +36,29 @@ Route::middleware(['can:isLogin'])->group(function () {
 
     // プロフィール編集処理
     Route::post('profiles/{userName}/edit/complete/', [ProfileController::class, 'editComplete'])->name('profile.edit.complete');
+});
+
+//　パスワードリセット関連
+Route::prefix('password_reset')->name('password_reset.')->group(function () {
+    Route::prefix('email')->name('email.')->group(function () {
+        // パスワードリセットのメールを送信するためのメールアドレス入力画面
+        Route::get('/', [PasswordController::class, 'emailFormResetPassword'])->name('form');
+
+        // メール送信処理
+        Route::post('/', [PasswordController::class, 'sendEmailResetPassword'])->name('send');
+
+        //　送信完了メール
+        Route::get('/send/complete/', [PasswordController::class, 'sendComplete'])->name('send_complete');
+    });
+
+    //　パスワード再設定用画面
+    Route::get('/edit/', [PasswordController::class, 'edit'])->name('edit');
+
+    // パスワード更新処理
+    Route::post('/update/', [PasswordController::class, 'update'])->name('update');
+
+    //　パスワード更新終了ページ
+    Route::get('/edited/', [PasswordController::class, 'edited'])->name('edited');
 });
 
 // 投稿一覧画面

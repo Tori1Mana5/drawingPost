@@ -11,7 +11,6 @@
     </ul>
 @endif
 {{ Form::open(['route' => 'user.complete']) }}
-    {{ Form::token() }}
     <div>
         ユーザ名: {{ Form::text('body[]', old('body.0')) }}
         <br>

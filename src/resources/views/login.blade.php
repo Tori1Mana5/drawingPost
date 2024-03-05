@@ -10,7 +10,6 @@
     {{ link_to_route('post', $title = "一覧画面に戻る")}}
     {{ link_to_route('user.register', $title = "アカウント登録") }}
     {{ Form::open(['route' => 'user.authenticate']) }}
-    {{ Form::token() }}
        メールアドレス: {{ Form::text('body[]', old('body.0')) }}
        <br>
        @error('body.0')
@@ -23,5 +22,6 @@
 		@enderror
         {{ Form::button('ログイン', ['type' => 'submit']) }}
     {{ Form::close() }}
+        {{ link_to_route('password_reset.email.form', $title = "パスワードをお忘れの方") }}
 </body>
 </html>
