@@ -7,6 +7,11 @@
 <body>
     <div>
         <h2>パスワード再設定メール送信フォーム</h2>
+        @if (session('flash_message'))
+			<div>
+				{{ session('flash_message') }}
+			</div>
+		@endif
         {{ link_to_route('post', $title = "一覧画面に戻る")}}
         {{ link_to_route('user.register', $title = "アカウント登録") }}
 

@@ -83,7 +83,7 @@ class PasswordController extends Controller
         // メール送信で設定したセッションキーが存在していない場合、リダイレクトする
         if (session()->pull(self::MAIL_SENDED_SESSION_KEY) !== 'user_reset_password_send_email') {
             return redirect()->route('password_reset.email.form')
-                ->with('message', '不正なリクエストです。');
+                ->with('flash_message', '不正なリクエストです。');
         }
 
         return view('user.reset_password.send_complete');
@@ -141,7 +141,7 @@ class PasswordController extends Controller
 
             // リダイレクトする
             return redirect()->route('password_reset.email.form')
-                ->with('message', __('処理に失敗しました。時間をおいて再度お試しください。'));
+                ->with('flash_message', __('処理に失敗しました。時間をおいて再度お試しください。'));
         }
         // パスワードリセット完了画面の不正アクセス防止のためにセッションキーを設定
         $request->session()->put(self::UPDATE_PASSWORD_SESSION_KEY, 'user_update_password');
@@ -157,7 +157,7 @@ class PasswordController extends Controller
         // パスワード更新処理で設定したセッションキーの値がない場合はパスワード入力フォームにリダイレクトする
         if (session()->pull(self::UPDATE_PASSWORD_SESSION_KEY) !== 'user_update_password') {
             return redirect()->route('password_reset.email.form')
-                ->with('message', '不正なリクエストです。');
+                ->with('flash_message', '不正なリクエストです。');
         }
 
         return view('user.reset_password.edited');
