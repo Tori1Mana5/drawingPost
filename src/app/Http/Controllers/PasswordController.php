@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\SendEmailRequest;
+use App\Mail\UserResetPasswordCompleteMail;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\Interfaces\UserTokenRepositoryInterface;
 use App\Mail\UserResetPasswordMail;
@@ -144,6 +145,9 @@ class PasswordController extends Controller
         }
         // パスワードリセット完了画面の不正アクセス防止のためにセッションキーを設定
         $request->session()->put(self::UPDATE_PASSWORD_SESSION_KEY, 'user_update_password');
+        
+        // パスワード再設定が完了メールを送信する
+        Mail::send(new UserResetPasswordCompleteMail($userAndUserToken));
         
         return redirect()->route('password_reset.edited');
     }
