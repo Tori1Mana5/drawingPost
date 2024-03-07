@@ -43,7 +43,7 @@ class UserTokenRepository implements UserTokenRepositoryInterface
      */
     public function getUserTokenfromToken(string $token): UserToken
     {
-        // トークンを使い、
         return $this->userToken->where('token', $token)->firstOrFail();
+        // トークンを使い、紐づいたユーザートークンとユーザー情報を取得
     }
 }
