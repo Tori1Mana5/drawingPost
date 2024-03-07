@@ -21,5 +21,5 @@ interface UserTokenRepositoryInterface
      * @param string $token
      * @return UserToken
      */
-    public function getUserTokenfromToken(string $token): UserToken;
+    public function getUserTokenAndUserFromToken(string $token): UserToken;
 }

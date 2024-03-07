@@ -50,13 +50,13 @@ class PasswordController extends Controller
             $user = $this->userRepository->findFromEmail($request->email);
     
             // ユーザーIDに紐づくトークンを作成する
-            $userToken = $this->userTokenRepository->updateOrCreateUserToken($user->id);
+            $userAndUserToken = $this->userTokenRepository->updateOrCreateUserToken($user->id);
 
             // 実行ログを記録
             Log::info(__METHOD__ . '...ID:' . $user->id . 'のユーザーにパスワード再設定用メールを送信します。');
 
             // メール送信
-            Mail::send(new UserResetPasswordMail($user, $userToken));
+            Mail::send(new UserResetPasswordMail($user, $userAndUserToken));
 
             // メール送信実行後ログを記録
             Log::info(__METHOD__ . '...ID:' . $user->id . 'のユーザーにパスワードを再設定メールを送信しました。');
@@ -106,7 +106,7 @@ class PasswordController extends Controller
 
         try {
             // トークンに紐づくUserTokenテーブルのレコードから一件取得する
-            $userToken = $this->userTokenRepository->getUserTokenfromToken($resetToken);
+            $userAndUserToken = $this->userTokenRepository->getUserTokenAndUserFromToken($resetToken);
         } catch (Exception $e) {
             Log::error(__METHOD__ . ' UserTokenの取得に失敗しました。 error_message = ' . $e);
             return redirect()->route('password_reset.email.form')
@@ -114,7 +114,7 @@ class PasswordController extends Controller
         }
 
         return view('user.reset_password.edit')
-            ->with('userToken', $userToken);
+            ->with('userToken', $userAndUserToken);
     }
 
     /**
@@ -126,14 +126,14 @@ class PasswordController extends Controller
     public function update(ResetPasswordRequest $request)
     {
         try {
-            // トークンに紐づくuserTokenテーブル
-            $userToken = $this->userTokenRepository->getUserTokenfromToken($request->reset_token);
+            // トークンに紐づくuserTokenの情報を取得する
+            $userAndUserToken = $this->userTokenRepository->getUserTokenAndUserFromToken($request->reset_token);
 
             // 指定したユーザーIDを使用して紐づくパスワードを更新する
-            $this->userRepository->updateUserPassword($request->password, $userToken->user_id);
+            $this->userRepository->updateUserPassword($request->password, $userAndUserToken->user_id);
 
             // パスワード更新ログを記録する
-            Log::info(__METHOD__ . '...ID:' . $userToken->user_id . 'のユーザーのパスワードを更新しました。');
+            Log::info(__METHOD__ . '...ID:' . $userAndUserToken->user_id . 'のユーザーのパスワードを更新しました。');
         } catch (Exception $e) {
             // 更新失敗ログを記録する
             Log::error(__METHOD__ . '...ユーザーのパスワードの更新に失敗しました。 ...error_message = ' . $e);

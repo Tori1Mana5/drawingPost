@@ -41,9 +41,9 @@ class UserTokenRepository implements UserTokenRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getUserTokenfromToken(string $token): UserToken
+    public function getUserTokenAndUserFromToken(string $token): UserToken
     {
-        return $this->userToken->where('token', $token)->firstOrFail();
         // トークンを使い、紐づいたユーザートークンとユーザー情報を取得
+        return $this->userToken->with('user')->where('token', $token)->firstOrFail();
     }
 }

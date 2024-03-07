@@ -32,7 +32,7 @@ class TokenExpirationTimeRule implements Rule
         $userTokenRepository = app()->make(UserTokenRepositoryInterface::class);
 
         // userTokenテーブルからレコードを1件取得する
-        $userToken = $userTokenRepository->getUserTokenfromToken($value);
+        $userToken = $userTokenRepository->getUserTokenAndUserFromToken($value);
         $expireTime = new Carbon($userToken->expire_at);
 
         // 現日時よりも前の日時であることを判定し、その結果を返す
