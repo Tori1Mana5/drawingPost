@@ -16,7 +16,6 @@
         </ul>
     @endif
 	{{ Form::open(['route' => 'post.store.complete', 'files' => true]) }}
-		{{ Form::token() }}
 		<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
 		<p>作品: {{ Form::file('image') }}</p>
 		{{ Form::button('投稿', ['type' => 'submit']) }}

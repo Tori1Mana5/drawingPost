@@ -20,7 +20,6 @@
         </ul>
     @endif
     {{ Form::open(['route' => ['profile.register.complete', $userName], 'files' => true]) }}
-        {{ Form::token() }}
         <p>プロフィール: {{ Form::text('body[]', old('body.0')) }}</p>
         <p>アイコン画像: {{ Form::file('profile_image[]') }}</p>
         <p>背景画像: {{ Form::file('profile_image[]') }}</p>
