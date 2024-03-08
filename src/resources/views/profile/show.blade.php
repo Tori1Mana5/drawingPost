@@ -46,6 +46,9 @@
 		<p>
             投稿内容: {{ $post->body }}
         </p>
+        @can ('update-post', $post)
+            <p>{{ link_to_route('post.edit', $title = "内容を編集", $parameters = [$post->id]) }}</p>
+		@endcan
 		@if (!is_null($post->image))
                 <img src="{{ asset(Storage::url($post->image)) }}">
 		@endif
