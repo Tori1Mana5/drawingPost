@@ -1,48 +1,57 @@
-<!DOCTYPE html>
-<html>
-<body>
-<h2>アカウント新規登録</h2>
-{{ link_to_route('post', $title = "一覧画面に戻る") }}
-@if ($errors->any())
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-@endif
-{{ Form::open(['route' => 'user.complete']) }}
-    <div>
-        ユーザ名: {{ Form::text('body[]', old('body.0')) }}
-        <br>
-        <p>
-            15文字以内の英数字を入力してください。
+@extends('layouts.app')
+
+@section('title', '新規登録')
+
+@section('content')
+	<div>
+    {{ Form::open(['route' => 'user.complete']) }}
+        <div>
+            ユーザ名: {{ Form::text('userName', old('userName')) }}
             <br>
-            活動時に必要になるユーザーごとの名前です。
-        </p>
-    </div>
-    <br>
-    <div>
-        ニックネーム: {{ Form::text('body[]', old('body.1')) }}
+            <p>
+                15文字以内の半角英数字を入力してください。
+                <br>
+                ユーザーごとのIDです
+            </p>
+            @if ($errors->has('userName'))
+                <p>
+                    {{ $errors->first('userName') }}
+                </p>
+            @endif
+        </div>
         <br>
-        <p>
-            4文字以上50文字以内で入力してください。
+        <div>
+            ニックネーム: {{ Form::text('displayName', old('displayName')) }}
             <br>
-            活動時のニックネームです。
-        </p>
-    </div>
-    <br>
-    <div>
-        メールアドレス: {{ Form::text('body[]', old('body.2')) }}
+            <p>
+                4文字以上50文字以内で入力してください。
+                <br>
+                アカウントのニックネームです。
+            </p>
+            @if ($errors->has('displayName'))
+                <p>
+                    {{ $errors->first('displayName') }}
+                </p>
+            @endif
+        </div>
         <br>
-        パスワード: {{ Form::password('body[]') }}
-    </div>
-    <br>
-    {{ Form::button('登録', ['type' => 'submit']) }}
-{{ Form::close() }}
-</body>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>アカウントの新規登録</title>
-</head>
-</html>
+        <div>
+            メールアドレス: {{ Form::text('email', old('email')) }}
+            <br>
+            @if ($errors->has('email'))
+                <p>
+                    {{ $errors->first('email') }}
+                </p>
+            @endif
+            パスワード: {{ Form::password('password') }}
+            @if ($errors->has('password'))
+                <p>
+                    {{ $errors->first('password') }}
+                </p>
+            @endif
+        </div>
+        <br>
+        {{ Form::button('登録', ['type' => 'submit']) }}
+    {{ Form::close() }}
+	</div>
+@endsection

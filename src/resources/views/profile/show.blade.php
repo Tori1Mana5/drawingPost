@@ -1,24 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{ $userName }}</title>
-</head>
-<body>
-    @can ('isLogin')
-		{{ link_to_route('post.store', $title = "投稿する") }}
+@extends('layouts.app')
+
+@section('title', $userName)
+
+@section('content')
+    <div>
         @can ('edit-profile', $userName)
             {{ link_to_route('profile.edit', $title = "プロフィール編集", $parameters = ['userName' => auth()->user()->username]) }}
         @elsecan ('register-profile', $userName)
             {{ link_to_route('profile.register', $title = "プロフィール登録", $parameters = ['userName' => auth()->user()->username])  }}
         @endcan
-        {{ link_to_route('user.logout', $title = "ログアウト") }}
-    @else
-		{{ link_to_route('user.login', $title = "ログイン") }}
-	@endcan
-    {{ link_to_route('post', $title = "一覧画面に戻る") }}
-    <div>
         <h2>
             プロフィール
         </h2>
@@ -54,5 +44,4 @@
 		@endif
 		@endforeach
     </div>
-</body>
-</html>
+@endsection
