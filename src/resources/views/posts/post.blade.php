@@ -1,4 +1,6 @@
-@section('title', '投稿画面')
+@extends('layouts.app')
+
+@section('title', 'ホーム')
 
 @section('content')
 	<div>

@@ -4,7 +4,7 @@
 
 @section('content')
 	<div>
-        h2>新しいパスワードを設定</h2>
+        <h2>新しいパスワードを設定</h2>
         {{ Form::open(['route' => 'password_reset.update']) }}
             {{ Form::hidden('reset_token', $userToken->token) }}
             <div>

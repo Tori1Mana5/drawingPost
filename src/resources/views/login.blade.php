@@ -4,16 +4,29 @@
 
 @section('content')
     {{ Form::open(['route' => 'user.authenticate']) }}
-       メールアドレス: {{ Form::text('body[]', old('body.0')) }}
+        @error('error')
+            <div>{{ $error }}</div>
+        @enderror
+       メールアドレス: {{ Form::text('email', old('email')) }}
        <br>
-       @error('body.0')
-			<div>{{ $message }}</div>
-		@enderror
-       パスワード: {{ Form::password('body[]') }}
+       @if ($errors->has('email'))
+            <p>
+                {{ $errors->first('email') }}
+            </p>
+        @endif
+       パスワード: {{ Form::password('password') }}
        <br>
-       @error('body.1')
-			<div>{{ $message }}</div>
-		@enderror
+       @if ($errors->has('password'))
+            <p>
+                {{ $errors->first('password') }}
+            </p>
+        @endif
+
+        @if (session('flash_message'))
+			<div>
+				{{ session('flash_message') }}
+			</div>
+		@endif
         {{ Form::button('ログイン', ['type' => 'submit']) }}
     {{ Form::close() }}
         {{ link_to_route('password_reset.email.form', $title = "パスワードをお忘れの方") }}

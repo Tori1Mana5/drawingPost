@@ -24,10 +24,20 @@ class RegisterUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['required', 'max:15'],
-            'body.1' => ['required', 'between:4,50'],
-            'body.2' => ['required', 'email'],
-            'body.3' => ['required', 'min:8'],
+            'userName' => ['required', 'max:15', 'alpha_num:ascii'],
+            'displayName' => ['required', 'between:4,50'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:8'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'alpha_num' => '半角英数字を入力してください',
+            'required' => '必須項目です、入力してください',
+            'between' => ':min文字以上:max文字以内で入力してください',
+            'password.unique' => '指定したメールアドレスのアカウントは登録済みです',
         ];
     }
 }
