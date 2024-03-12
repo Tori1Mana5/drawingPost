@@ -24,8 +24,17 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['required_without:image', 'max:140'],
+            'text' => ['required_without:image', 'max:140'],
             'image' => ['image:jpg,jpeg,png,gif']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required_without' => '作品説明の入力、または作品画像を指定してください',
+            'max' => ':max文字以内で入力してください',
+            'image' => '形式はjpg,jpeg,png,gifを指定してください'
         ];
     }
 }

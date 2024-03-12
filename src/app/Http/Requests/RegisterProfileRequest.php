@@ -24,9 +24,18 @@ class RegisterProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['max:140'],
-            'profile_image.0' => ['image:jpg,jpeg,png,gif'],
-            'profile_image.1' => ['image:jpg,jpeg,png,gif'],
+            'text' => ['required_without:profileIconImage', 'max:140'],
+            'profileIconImage' => ['image:jpg,jpeg,png,gif'],
+            'profileBackground' => ['image:jpg,jpeg,png,gif'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required_without' => 'プロフィールの入力、またはアイコンの選択のどちらかが必須です',
+            'max' => ':max文字以内で入力してください',
+            'image' => '形式はjpg,jpeg,png,gifを指定してください'
         ];
     }
 }

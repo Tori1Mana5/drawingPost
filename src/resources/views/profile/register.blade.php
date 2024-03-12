@@ -3,6 +3,7 @@
 @section('title', 'プロフィール登録')
 
 @section('content')
+<div>
     {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}
     <br>
     @if ($errors->any())
@@ -13,9 +14,21 @@
         </ul>
     @endif
     {{ Form::open(['route' => ['profile.register.complete', $userName], 'files' => true]) }}
-        <p>プロフィール: {{ Form::text('body[]', old('body.0')) }}</p>
-        <p>アイコン画像: {{ Form::file('profile_image[]') }}</p>
-        <p>背景画像: {{ Form::file('profile_image[]') }}</p>
-        {{ Form::button('編集', ['type' => 'submit']) }}
+    <div class="form-row">
+        <div class="form-group">
+            {{ Form::label('text', 'プロフィール') }}
+            {{ Form::textarea('text', old('text'), ['class' => 'form-control']) }}
+        </div>
+        <div class="form-group">
+            {{ Form::label('profileIconImage', 'アイコン画像') }}
+            {{ Form::file('profileIconImage', ['class' => 'form-control']) }}
+        </div>
+        <div class="form-group">
+            {{ Form::label('profileBackground', '背景画像') }}
+            {{ Form::file('profileBackground', ['class' => 'form-control']) }}
+        </div>
+        {{ Form::button('編集', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+    </div>
     {{ Form::close() }}
+</div>
 @endsection

@@ -14,9 +14,17 @@
 			</ul>
 		@endif
 		{{ Form::open(['route' => 'post.store.complete', 'files' => true]) }}
-			<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
-			<p>作品: {{ Form::file('image') }}</p>
-			{{ Form::button('投稿', ['type' => 'submit']) }}
+		<div class="form-row">
+			<div class="form-group">
+				{{ Form::label('text', '作品説明') }}
+				{{ Form::textarea('text', old('text'), ['class' => 'form-control']) }}
+			</div>
+			<div class="form-group">
+				{{ Form::label('image', '作品') }}
+				{{ Form::file('image', ['class' => 'form-control']) }}
+			</div>
+			{{ Form::button('投稿', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		</div>
 		{{ Form::close() }}
 	</div>
 @endsection

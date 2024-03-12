@@ -60,29 +60,29 @@ class ProfileController extends Controller
     public function registerComplete(string $userName, RegisterProfileRequest $request): RedirectResponse
     {
         $profileData = [
-            'profile' => $request->input('body.0')
+            'profile' => $request->input('text')
         ];
 
         // プロフィールアイコンがアップロードされている時にチェックする
-        if ($request->hasFile('profile_image.0')) {
+        if ($request->hasFile('profileIconImage')) {
             // プロフィールアイコンのアップロードに問題がある場合は編集画面にリダイレクト
-            if (!$request->file('profile_image.0')->isValid()) {
+            if (!$request->file('profileIconImage')->isValid()) {
                 redirect()->route('profile.store', ['userName' => $userName]);
             }
 
             // プロフィール更新用の連想配列にアイコン画像のパスとを追加
-            $profileData['profile_icon'] = $request->file('profile_image.0')->store('public');
+            $profileData['profile_icon'] = $request->file('profileIconImage')->store('public');
         }
 
         // プロフィール背景がアップロードされている時にチェックする
-        if ($request->hasFile('profile_image.1')) {
+        if ($request->hasFile('profileBackground')) {
             // プロフィール背景のアップロードに問題がある場合は編集画面にリダイレクト
-            if (!$request->file('profile_image.1')->isValid()) {
+            if (!$request->file('profileBackground')->isValid()) {
                 redirect()->route('profile.store', ['userName' => $userName]);
             }
 
             // プロフィール更新用の連想配列にアイコン画像のパスと背景画像のバスを追加
-            $profileData['profile_background'] = $request->file('profile_image.1')->store('public');
+            $profileData['profile_background'] = $request->file('profileBackground')->store('public');
         }
 
         $profile = new Profile($profileData);
@@ -122,18 +122,18 @@ class ProfileController extends Controller
     {
         // プロフィールを更新するために連想配列をセット
         $profileData = [
-            'profile' => $request->input('body.0'),
+            'profile' => $request->input('text'),
         ];
 
         // ニックネームを更新するために連想配列をセット
         $userData = [
-            'display_name' => $request->input('body.1')
+            'display_name' => $request->input('displayName')
         ];
 
         // プロフィールアイコンがアップロードされている時にチェックする
-        if ($request->hasFile('profile_image.0')) {
+        if ($request->hasFile('profileIconImage')) {
             // プロフィールアイコンのアップロードに問題がある場合は編集画面にリダイレクト
-            if (!$request->file('profile_image.0')->isValid()) {
+            if (!$request->file('profileIconImage')->isValid()) {
                 redirect()->route('profile.edit', ['userName' => $userName]);
             }
 
@@ -143,13 +143,13 @@ class ProfileController extends Controller
             }
 
             // プロフィール更新用の連想配列にアイコン画像のパスを追加
-            $profileData['profile_icon'] = $request->file('profile_image.0')->store('public');
+            $profileData['profile_icon'] = $request->file('profileIconImage')->store('public');
         }
 
         // プロフィール背景がアップロードされている時にチェックする
-        if ($request->hasFile('profile_image.1')) {
+        if ($request->hasFile('profileBackground')) {
             // プロフィール背景のアップロードに問題がある場合は編集画面にリダイレクト
-            if (!$request->file('profile_image.1')->isValid()) {
+            if (!$request->file('profileBackground')->isValid()) {
                 redirect()->route('profile.edit', ['userName' => $userName]);
             }
 
@@ -159,7 +159,7 @@ class ProfileController extends Controller
             }
 
             // プロフィール更新用の連想配列にアイコン画像のパスと背景画像のバスを追加
-            $profileData['profile_background'] = $request->file('profile_image.1')->store('public');
+            $profileData['profile_background'] = $request->file('profileBackground')->store('public');
         }
 
         // 更新対象のユーザーを指定するためにログインユーザーのidを取得
