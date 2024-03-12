@@ -24,7 +24,9 @@ class ProfileController extends Controller
     {
         $posts = Post::withWhereHas('user', function ($query) use ($userName) {
             $query->where('username', $userName);
-        })->get();
+        })->get()->sortBy([
+            ['created_at', 'desc']
+        ]);;
 
         $profiles = Profile::withWhereHas('user', function ($query) use ($userName) {
             $query->where('username', $userName);
