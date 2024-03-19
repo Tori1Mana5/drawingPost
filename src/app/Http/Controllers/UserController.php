@@ -15,8 +15,6 @@ class UserController extends Controller
 
     public function complete(RegisterUserRequest $request)
     {
-        $body = $request->input('body');
-
         User::create([
             'username' => $request->input('userName'),
             'display_name' => $request->input('displayName'),

@@ -3,29 +3,39 @@
 @section('title', '新パスワード入力フォーム')
 
 @section('content')
-	<div>
-        <h2>新しいパスワードを設定</h2>
+<div class="container">
+    <h2>新しいパスワードを設定</h2>
+    <div class="container card">
         {{ Form::open(['route' => 'password_reset.update']) }}
-            {{ Form::hidden('reset_token', $userToken->token) }}
-            <div>
-                {{ Form::label('password', 'パスワード') }}
-                {{ Form::password('password', ['class' => $errors->has('password') ? 'incorrect' : '']) }}
-                @error('password')
-                    <div>
-                        {{ $message }}
-                    </div>
-                @enderror
-                @error('token')
-                    <div>
-                        {{ $message }}
-                    </div>
-                @enderror
+        {{ Form::hidden('reset_token', $userToken->token) }}
+        <div class="col-sm-6 g-3 mt-3">
+            <div class="form-floating">
+                {{ Form::password('password', ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+                {{ Form::label('floatingInput', 'パスワード', ['label' => 'floatingInput']) }}
             </div>
-            <div>
-                {{ Form::label('password_confirmation', 'パスワードを再入力') }}
-                {{ Form::password('password_confirmation', ['class' => $errors->has('password_confirmation') ? 'incorrect' : '']) }}
+        </div>
+        <div>
+            @error('password')
+                <p>
+                    {{ $message }}
+                </p>
+            @enderror
+            @error('token')
+                <p>
+                    {{ $message }}
+                </p>
+            @enderror
+        </div>
+        <div class="col-sm-6 g-3 mt-3">
+            <div class="form-floating">
+                {{ Form::password('password_confirmation', ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+                {{ Form::label('password_confirmation', 'パスワードを再入力', ['label' => 'floatingInput']) }}
             </div>
-            {{ Form::button('パスワードを再設定', ['type' => 'submit']) }}
+        </div>
+        <div class="mt-3">
+            {{ Form::button('パスワードを再設定', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+        </div>
         {{ Form::close() }}
-	</div>
+    </div>
+</div>
 @endsection
