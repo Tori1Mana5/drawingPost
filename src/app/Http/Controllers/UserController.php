@@ -15,13 +15,11 @@ class UserController extends Controller
 
     public function complete(RegisterUserRequest $request)
     {
-        $body = $request->input('body');
-
         User::create([
-            'username' => $body[0],
-            'display_name' => $body[1],
-            'email' => $body[2],
-            'password' => Hash::make($body[3])
+            'username' => $request->input('userName'),
+            'display_name' => $request->input('displayName'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password'),)
         ]);
 
         return view('user/complete');

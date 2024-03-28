@@ -24,10 +24,31 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'body.0' => ['max:140'],
-            'body.1' => ['required', 'between:4,50'],
-            'profile_image.0' => ['image:jpg,jpeg,png,gif'],
-            'profile_image.1' => ['image:jpg,jpeg,png,gif'],
+            'text' => ['max:140'],
+            'displayName' => ['required', 'between:4,50'],
+            'profileIconImage' => ['image:jpg,jpeg,png,gif'],
+            'profileBackground' => ['image:jpg,jpeg,png,gif'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'max' => ':max以内で入力してください',
+            'required' => ':attributeを入力してください',
+            'between' => ':min以上、:max以内で入力してください',
+            'image' => '形式はjpg,jpeg,png,gifを指定してください'
+        ];
+    }
+
+    /**
+     * Customize attribute name
+     */
+
+    public function attributes()
+    {
+        return [
+            'displayName' => 'ニックネーム'
         ];
     }
 }

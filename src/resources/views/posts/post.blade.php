@@ -1,24 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>投稿画面</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', '投稿画面')
+
+@section('content')
+<div class="container" id="margin_top">
+<h2>投稿</h2>
 	{{ link_to_route('post', $title = "一覧画面に戻る") }}
-	<br>
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-	{{ Form::open(['route' => 'post.store.complete', 'files' => true]) }}
-		<p>作品説明: {{ Form::text('body[]', old('body.0')) }}</p>
-		<p>作品: {{ Form::file('image') }}</p>
-		{{ Form::button('投稿', ['type' => 'submit']) }}
-	{{ Form::close() }}
-</body>
-</html>
+	<div class="container card">
+		{{ Form::open(['route' => 'post.store.complete', 'files' => true]) }}
+		<div class="col-sm-6">
+			<div class="form-floating mt-3">
+				{{ Form::textarea('text', old('text'), ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+				{{ Form::label('text', '作品説明', ['label' => 'floatingInput']) }}
+			</div>
+			<div>
+				@if ($errors->has('text'))
+					{{ $errors->first('text') }}
+				@endif
+			</div>
+		</div>
+		<div class="col-sm-6 my-3">
+			<h3>作品画像</h3>
+			<div class="input-group">
+				{{ Form::label('inputGroupFile01', 'upload', ['class' => 'input-group-text']) }}
+				{{ Form::file('image', ['class' => 'form-control', 'id' => 'inputGroupFile01']) }}
+			</div>
+			<div>
+				@if ($errors->has('image'))
+					{{ $errors->first('image') }}
+				@endif
+			</div>
+		</div>
+		{{ Form::button('投稿', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+		{{ Form::close() }}
+	</div>
+</div>
+@endsection

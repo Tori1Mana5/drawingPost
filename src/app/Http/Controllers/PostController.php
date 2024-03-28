@@ -28,7 +28,7 @@ class PostController extends Controller
     public function storeComplete(StorePostRequest $request)
     {
         $postData = [
-            'body' => $request->input('body.0'),
+            'body' => $request->input('text'),
             'user_id' => Auth::id(),
         ];
 
@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         // 投稿内容を更新するために連想配列をセット
         $postDate = [
-            'body' => $request->input('body.0')
+            'body' => $request->input('text')
         ];
 
         if ($request->hasFile('image')) {

@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィール登録</title>
-</head>
-<body>
-    <h2>
-        プロフィール
-    </h2>
-    {{ link_to_route('post', '一覧画面に戻る') }}
+@extends('layouts.app')
+
+@section('title', 'プロフィール登録')
+
+@section('content')
+<div id="margin_top">
     {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}
     <br>
     @if ($errors->any())
@@ -20,10 +14,27 @@
         </ul>
     @endif
     {{ Form::open(['route' => ['profile.register.complete', $userName], 'files' => true]) }}
-        <p>プロフィール: {{ Form::text('body[]', old('body.0')) }}</p>
-        <p>アイコン画像: {{ Form::file('profile_image[]') }}</p>
-        <p>背景画像: {{ Form::file('profile_image[]') }}</p>
-        {{ Form::button('編集', ['type' => 'submit']) }}
+    <div class="form-row">
+        <div class="col-sm-6">
+            <div class="form-floating">
+                {{ Form::textarea('text', old('text'), ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+                {{ Form::label('floatingInput', 'プロフィール', ['label' => 'floatingInput']) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-floating">
+                {{ Form::label('profileIconImage', 'アイコン画像') }}
+                {{ Form::file('profileIconImage', ['class' => 'form-control']) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-floating">
+                {{ Form::label('profileBackground', '背景画像') }}
+                {{ Form::file('profileBackground', ['class' => 'form-control']) }}
+            </div>
+        </div>
+        {{ Form::button('編集', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+    </div>
     {{ Form::close() }}
-</body>
-</html>
+</div>
+@endsection

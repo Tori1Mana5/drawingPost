@@ -1,27 +1,45 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'ログイン')
+
+@section('content')
+<div class="container" id="margin_top">
     <h2>ログイン</h2>
-    {{ link_to_route('post', $title = "一覧画面に戻る")}}
     {{ link_to_route('user.register', $title = "アカウント登録") }}
-    {{ Form::open(['route' => 'user.authenticate']) }}
-       メールアドレス: {{ Form::text('body[]', old('body.0')) }}
-       <br>
-       @error('body.0')
-			<div>{{ $message }}</div>
-		@enderror
-       パスワード: {{ Form::password('body[]') }}
-       <br>
-       @error('body.1')
-			<div>{{ $message }}</div>
-		@enderror
-        {{ Form::button('ログイン', ['type' => 'submit']) }}
-    {{ Form::close() }}
-        {{ link_to_route('password_reset.email.form', $title = "パスワードをお忘れの方") }}
-</body>
-</html>
+    <div class="container card">
+        {{ Form::open(['route' => 'user.authenticate']) }}
+        <div>
+            <div class="col-sm-6 mt-3">
+                <div class="form-floating mb-3">
+                    {{ Form::text('email', old('email'), ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+                    {{ Form::label('floatingInput', 'メールアドレス', ['label' => 'floatingInput']) }}
+                </div>
+                @if ($errors->has('email'))
+                <p>
+                    {{ $errors->first('email') }}
+                </p>
+                @endif
+            </div>
+            <div class="col-sm-6">
+                <div class="form-floating mb-3">
+                    {{ Form::password('password', ['class' => 'form-control', 'id' => 'floatingInput', 'placeholder' => '']) }}
+                    {{ Form::label('password', 'パスワード', ['label' => 'floatingInput']) }}
+                </div>
+                @if ($errors->has('password'))
+                    <p>
+                        {{ $errors->first('password') }}
+                    </p>
+                @endif
+                @if (session('flash_message'))
+                    <div>
+                        {{ session('flash_message') }}
+                    </div>
+                @endif
+            </div>
+            {{ Form::button('ログイン', ['type' => 'submit', 'class' => 'btn btn-primary']) }}
+            {{ Form::close() }}
+        </div>
+    </div>
+    {{ link_to_route('password_reset.email.form', $title = "パスワードをお忘れの方") }}
+</div>
+@endsection

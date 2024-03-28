@@ -12,14 +12,19 @@ class LoginController extends Controller
         return view('login');
     }
 
+    /**
+     * 入力されたログイン情報を認証する
+     *
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     */
     public function authenticate(LoginRequest $request)
     {
-        if (Auth::attempt(['email' => $request->body[0], 'password' => $request->body[1]], true)) {
+        // リクエストで入力されたメールアドレスとパスワードで認証を実行し、認証できなかった場合は入力画面に戻す
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')], true)) {
             $request->session()->regenerate();
             return redirect()->route('post');
         }
-        return back()->withErrors([
-            'body.0' => 'メールアドレスかパスワードに誤りがあります'
-        ])->onlyInput('body.0');
+        return back()->with('flash_message', 'メールアドレスかパスワードに誤りがあります')->onlyInput('email');
     }
 }
