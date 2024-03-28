@@ -3,7 +3,7 @@
 @section('title', '投稿編集')
 
 @section('content')
-<div class="container">
+<div class="container" id="margin_top">
 <h2>投稿編集</h2>
     {{ link_to_route('post', $title = "一覧画面に戻る") }}
 	<div class="container card">

@@ -3,7 +3,7 @@
 @section('title', 'プロフィール登録')
 
 @section('content')
-<div>
+<div id="margin_top">
     {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}
     <br>
     @if ($errors->any())

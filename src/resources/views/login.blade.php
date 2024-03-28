@@ -3,7 +3,7 @@
 @section('title', 'ログイン')
 
 @section('content')
-<div class="container">
+<div class="container" id="margin_top">
     <h2>ログイン</h2>
     {{ link_to_route('user.register', $title = "アカウント登録") }}
     <div class="container card">

@@ -1,7 +1,7 @@
 <html>
     <head>
 		<meta charset="utf-8">
-        @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
+        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
         <title>{{ config('app.name') }} - @yield('title')</title>
     </head>
     <body>

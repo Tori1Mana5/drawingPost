@@ -3,7 +3,7 @@
 @section('title', '新規登録')
 
 @section('content')
-<div class="container">
+<div class="container" id="margin_top">
     <div class="container card">
     {{ Form::open(['route' => 'user.complete']) }}
         <div class ="row g-3 align-items-center mt-2">

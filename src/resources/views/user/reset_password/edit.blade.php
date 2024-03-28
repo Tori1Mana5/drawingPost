@@ -3,7 +3,7 @@
 @section('title', '新パスワード入力フォーム')
 
 @section('content')
-<div class="container">
+<div class="container" id="margin_top">
     <h2>新しいパスワードを設定</h2>
     <div class="container card">
         {{ Form::open(['route' => 'password_reset.update']) }}

@@ -3,7 +3,7 @@
 @section('title', 'プロフィール修正')
 
 @section('content')
-<div class="container">
+<div class="container" id="margin_top">
     <h2>プロフィール修正</h2>
     {{ link_to_route('post', '一覧画面に戻る') }}
     {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}

@@ -3,7 +3,7 @@
 @section('title', 'ホーム')
 
 @section('content')
-	<div class="container">
+	<div class="container" id="margin_top">
 		@foreach ($posts as $post)
 			<div class="container card mb-4 shadow-sm h-md-250">
 				<p>ユーザーID: {{ link_to_route('profile.show', $title = $post->user->username, $parameters = [$post->user->username]) }}</p>
