@@ -7,10 +7,10 @@
                     {{ link_to_route('post.store', $title = "投稿する", $parameters = [], $attributes = ['class' => 'nav-link']) }}
                 </li>
                 <li class="nav-item active">
-                    {{ link_to_route('user.logout', $title = "ログアウト", $parameters = [], $attributes = ['class' => 'nav-link']) }}
+                    {{ link_to_route('profile.show', $title = "プロフィール", $parameters = [auth()->user()->username], $attributes = ['class' => 'nav-link']) }}
                 </li>
                 <li class="nav-item active">
-                    {{ link_to_route('profile.show', $title = "プロフィール", $parameters = [auth()->user()->username], $attributes = ['class' => 'nav-link']) }}
+                    {{ link_to_route('user.logout', $title = "ログアウト", $parameters = [], $attributes = ['class' => 'nav-link']) }}
                 </li>
             @else
                 <li class="nav-item">
