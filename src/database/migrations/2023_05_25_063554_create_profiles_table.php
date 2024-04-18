@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string('profile')->nullable();
             $table->string('profile_icon')->nullable();
             $table->string('profile_background')->nullable();
-            $table->foreignIdFor(User::class)->unique();
+
+            // リレーションで親のusersテーブルのidのレコードが消された場合、紐づくuser_idを持つprofilesテーブルのレコードを削除する
+            $table->foreignIdFor(User::class)->unique()->onUpdate('CASCADE')->onDelete('CASCADE')->constrained();
             $table->timestamps();
+
+            // ソフトデリート用設定
+			$table->softDeletes();
         });
     }
 
@@ -31,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('users');
     }
 };

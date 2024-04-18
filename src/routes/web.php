@@ -36,6 +36,12 @@ Route::middleware(['can:isLogin'])->group(function () {
 
     // プロフィール編集処理
     Route::post('profiles/{userName}/edit/complete/', [ProfileController::class, 'editComplete'])->name('profile.edit.complete');
+
+    // アカウント削除画面
+    Route::get('/users/delete/confirm/', [UserController::class, 'deleteConfirm'])->name('user.delete.confirm');
+
+    // アカウント削除
+    Route::post('/users/delete/complete/', [UserController::class, 'deleteComplete'])->name('user.delete.complete');
 });
 
 //　パスワードリセット関連

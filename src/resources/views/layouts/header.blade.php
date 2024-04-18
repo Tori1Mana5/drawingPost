@@ -1,5 +1,5 @@
 <nav class = "navbar navbar-expand-lg bg-info fixed-top py-6 px-4">
-    {{ link_to_route('post', $title = "イラストコミュニケーションサイト - めちゃわかったー", $parameters = [], $attributes = ['class' => 'navbar-brand']) }}
+    {{ link_to_route('post', $title = "イラストコミュニケーションサイト - おえかきしったー", $parameters = [], $attributes = ['class' => 'navbar-brand']) }}
     <div class="collapse navbar-collapse " id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             @can ('isLogin')

@@ -2,14 +2,36 @@
 
 namespace App\Models;
 
+use Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    protected $fillable = ['username', 'display_name', 'email', 'password'];
+    protected $fillable = [
+        'username', 
+        'display_name', 
+        'email', 
+        'password',
+        'deleted_at',
+    ];
 
     use HasFactory;
+
+    // ソフトデリートを利用
+    use SoftDeletes;
+
+    // リレーション関係があっても消せるようにlaravel-soft-cascadeを利用
+    use SoftCascadeTrait;
+
+    // 対象のリレーション
+    protected $softCascade = [
+        'posts', 
+        'profile',
+        'userToken',
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);

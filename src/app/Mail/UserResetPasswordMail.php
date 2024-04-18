@@ -44,7 +44,7 @@ class UserResetPasswordMail extends Mailable
         // 24時間後を期限とした署名付きURLを生成
         $url = URL::temporarySignedRoute('password_reset.edit', $expirationTime, $tokenParam);
 
-        return $this->from('hogehoge@example.com', 'めちゃわかったー運営局')
+        return $this->from('hogehoge@example.com', 'おえかきしったー運営局')
             ->to($this->user->email)
             ->subject('パスワードをリセットする')
             ->view('mails.password_reset_mail')

@@ -7,6 +7,7 @@
     <h2>プロフィール修正</h2>
     {{ link_to_route('post', '一覧画面に戻る') }}
     {{ link_to_route('profile.show', $title = "プロフィールに戻る", $parameters = ['userName' => $userName]) }}
+    {{ link_to_route('user.delete.confirm', $title = "アカウントを削除") }}
     <div class="container card">
         @if ($errors->any())
             <ul>

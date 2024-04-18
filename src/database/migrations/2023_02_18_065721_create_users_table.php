@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('remember_token')->nullable();
             $table->timestamps();
+
+            // ソフトデリート用設定
+			$table->softDeletes();
         });
     }
 
