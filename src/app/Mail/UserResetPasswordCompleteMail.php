@@ -26,7 +26,7 @@ class UserResetPasswordCompleteMail extends Mailable
 
     public function build()
     {
-        return $this->from('hogehoge@example.com', 'めちゃわかったー運営局')
+        return $this->from('hogehoge@example.com', 'おえかきしったー運営局')
             ->to($this->userAndUserToken->user->email)
             ->subject('パスワードの再設定が完了しました')
             ->view('mails.password_reset_complete_mail')

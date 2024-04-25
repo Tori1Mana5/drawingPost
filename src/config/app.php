@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'めちゃわかったー'),
+    'name' => env('APP_NAME', 'おえかきしったー'),
 
     /*
     |--------------------------------------------------------------------------
@@ -181,6 +181,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        // laravel-soft-cascadeの利用設定追加
+		Askedio\SoftCascade\Providers\GenericServiceProvider::class,
 
         /*
          * Package Service Providers...

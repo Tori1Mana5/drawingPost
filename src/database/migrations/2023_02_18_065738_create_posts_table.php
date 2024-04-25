@@ -18,8 +18,13 @@ return new class extends Migration
             $table->id();
             $table->text('body')->nullable();
             $table->text('image')->nullable();
-            $table->foreignIdFor(User::class);
+
+            // リレーションで親のusersテーブルのidのレコードが消された場合、紐づくuser_idを持つpostsテーブルのレコードを削除する
+            $table->foreignIdFor(User::class)->onUpdate('CASCADE')->onDelete('CASCADE')->constrained();
             $table->timestamps();
+
+            // ソフトデリート用設定
+			$table->softDeletes();
         });
     }
 
@@ -30,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('users');
     }
 };
