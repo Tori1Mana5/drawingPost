@@ -17,10 +17,10 @@ Route::middleware(['can:isLogin'])->group(function () {
     Route::post('/posts/store/complete/', [PostController::class, 'storeComplete'])->name('post.store.complete');
     
     // 投稿内容の編集画面
-    Route::get('/posts/edit/{postId}/', [PostController::class, 'edit'])->name('post.edit');
+    Route::get('/posts/{postId}/edit/', [PostController::class, 'edit'])->name('post.edit');
 
     // 投稿内容の編集処理
-    Route::post('/posts/edit/{postId}/complete/', [PostController::class, 'editComplete'])->name('post.edit.complete');
+    Route::post('/posts/{postId}/edit/complete/', [PostController::class, 'editComplete'])->name('post.edit.complete');
 
     // ログアウト
     Route::get('/users/logout/', [LogoutController::class, 'logout'])->name('user.logout');
