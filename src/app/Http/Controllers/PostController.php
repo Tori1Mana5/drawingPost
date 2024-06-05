@@ -20,6 +20,15 @@ class PostController extends Controller
         return view('posts/index', ['posts' => $posts]);
     }
 
+    public function show (int $postId)
+    {
+        $posts = Post::with('user')
+        ->where('id', $postId)
+        ->first();
+        
+        return view('posts/show', ['posts' => $posts]);
+    }
+
     public function store()
     {
         return view('posts/post');

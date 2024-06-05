@@ -70,6 +70,9 @@ Route::prefix('password_reset')->name('password_reset.')->group(function () {
 // 投稿一覧画面
 Route::get('/posts/', [PostController::class, 'index'])->name('post');
 
+// 投稿詳細画面
+Route::get('/posts/{postId}/show/', [PostController::class, 'show'])->name('post.show');
+
 // ユーザー登録画面
 Route::get('/users/register/', [UserController::class, 'register'])->name('user.register');
 
