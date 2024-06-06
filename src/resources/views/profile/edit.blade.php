@@ -40,8 +40,8 @@
             </div>
             <div class="col-sm-6 mt-3">
                 <div class="input-group">
-                    {{ Form::label('inputGroupFile01', 'upload', ['class' => 'input-group-text']) }}
-                    {{ Form::file('profileIconImage', ['class' => 'form-control', 'id' => 'inputGroupFile01']) }}
+                    {{ Form::label('profileIconImage', 'upload', ['class' => 'input-group-text']) }}
+                    {{ Form::file('profileIconImage', ['class' => 'form-control', 'id' => 'profileIconImage']) }}
                 </div>
             </div>
             <div class="col-sm-6 mt-3">
@@ -55,8 +55,8 @@
             <div class="col-sm-6 mt-3">
                 <h3>背景画像</h3>
                 <div class="input-group">
-                    {{ Form::label('inputGroupFile01', 'upload', ['class' => 'input-group-text']) }}
-                    {{ Form::file('profileBackground', ['class' => 'form-control', 'id' => 'inputGroupFile01']) }}
+                    {{ Form::label('profileBackground', 'upload', ['class' => 'input-group-text']) }}
+                    {{ Form::file('profileBackground', ['class' => 'form-control', 'id' => 'profileBackground']) }}
                 </div>
             </div>
         </div>

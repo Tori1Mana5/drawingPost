@@ -17,10 +17,10 @@ Route::middleware(['can:isLogin'])->group(function () {
     Route::post('/posts/store/complete/', [PostController::class, 'storeComplete'])->name('post.store.complete');
     
     // 投稿内容の編集画面
-    Route::get('/posts/edit/{postId}/', [PostController::class, 'edit'])->name('post.edit');
+    Route::get('/posts/{postId}/edit/', [PostController::class, 'edit'])->name('post.edit');
 
     // 投稿内容の編集処理
-    Route::post('/posts/edit/{postId}/complete/', [PostController::class, 'editComplete'])->name('post.edit.complete');
+    Route::post('/posts/{postId}/edit/complete/', [PostController::class, 'editComplete'])->name('post.edit.complete');
 
     // ログアウト
     Route::get('/users/logout/', [LogoutController::class, 'logout'])->name('user.logout');
@@ -69,6 +69,9 @@ Route::prefix('password_reset')->name('password_reset.')->group(function () {
 
 // 投稿一覧画面
 Route::get('/posts/', [PostController::class, 'index'])->name('post');
+
+// 投稿詳細画面
+Route::get('/posts/{postId}/show/', [PostController::class, 'show'])->name('post.show');
 
 // ユーザー登録画面
 Route::get('/users/register/', [UserController::class, 'register'])->name('user.register');
