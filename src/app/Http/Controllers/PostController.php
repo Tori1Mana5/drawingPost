@@ -7,6 +7,8 @@ use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -43,7 +45,26 @@ class PostController extends Controller
 
         // 投稿作品のファイルがある場合は投稿のデータの連想配列に保存
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $postData['image'] = $request->file('image')->store('public/images');
+            $manager = new ImageManager();
+            $image = $manager->make($request->file('image'));
+
+            // ファイルサイズを縮小する
+            $resizedImage = $image->heighten(200);
+
+            // ファイルの拡張子を取得する
+            $extension = $request->file('image')->extension();
+
+            // ランダムな文字列を設定して保存するファイル名を設定
+            $fileName = $request->file('image')->hashName();
+
+            // 保存先パスとその保存ファイル名の設定
+            $filePath = storage_path('app/public/images/' . $fileName);
+
+            // ファイル保存
+            $resizedImage->save($filePath);
+
+            // DB保存のためにファイルパスを設定
+            $postData['image'] = 'public/images/' . $fileName;
         }
 
         Post::create($postData);
