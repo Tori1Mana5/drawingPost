@@ -12,7 +12,9 @@
 		<p>投稿内容: {{ $post->body }}</p>
 		<br>
 		@if (!is_null($post->image))
-		<img src="{{ asset(Storage::url($post->image)) }}">
+		<div>
+			<img src="{{ asset(Storage::url($post->image)) }}" class="img-fluid">
+		</div>
 		@endif
 	</div>
 	@endforeach

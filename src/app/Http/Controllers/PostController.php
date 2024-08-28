@@ -51,9 +51,6 @@ class PostController extends Controller
             // ファイルサイズを縮小する
             $resizedImage = $image->heighten(200);
 
-            // ファイルの拡張子を取得する
-            $extension = $request->file('image')->extension();
-
             // ランダムな文字列を設定して保存するファイル名を設定
             $fileName = $request->file('image')->hashName();
 
