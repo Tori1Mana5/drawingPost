@@ -5,15 +5,23 @@
 @section('content')
 
 <div class="container" id="margin_top">
-    <div class="row">
-        <div class="col">
-            <h2>
-                プロフィール
-            </h2>
+    @if (!is_null($profile['profile_background']))
+        <img src="{{ asset(Storage::url($profile['profile_background'])) }}" class="img-fluid">
+    @endif
+    <h2>
+        プロフィール
+    </h2>
+    <div class="row justify-content-center gx-5">
+        <div class="col-2">
             @if (!is_null($profile))
                 <p>
-                    {{ $profile['user']['username'] }}
+                    @ {{ $profile['user']['username'] }}
                 </p>
+                @if (!is_null($profile['profile_icon']))
+                    <img src="{{ asset(Storage::url($profile['profile_icon'])) }}">
+                @else
+                    <div></div>
+                @endif
                 <h3>
                     {{ $profile['user']['display_name'] }}
                 </h3>
@@ -27,24 +35,26 @@
                 {{ link_to_route('profile.register', $title = "プロフィール登録", $parameters = ['userName' => auth()->user()->username])  }}
             @endcan
         </div>
-        <div class="col-10">
+        <div class="col-8">
             @foreach ($posts as $post)
-            <div class="container card mb-4 shadow-sm h-md-250">
-                <p>
-                    ユーザーID: {{ link_to_route('profile.show', $title = $post->user->username, $parameters = [$post->user->username]) }}
-                </p>
-                <p>
-                    ニックネーム: {{ $post->user->display_name }}
-                </p>
-                <p>
-                    投稿内容: {{ $post->body }}
-                </p>
-                @can ('update-post', $post)
-                    <p>{{ link_to_route('post.edit', $title = "内容を編集", $parameters = [$post->id]) }}</p>
-                @endcan
-                @if (!is_null($post->image))
-                        <img src="{{ asset(Storage::url($post->image)) }}">
-                @endif
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">
+                        {{ $post->user->display_name }}
+                    </h3>
+                    <p class="card-subtitle">
+                        {{ link_to_route('profile.show', $title = $post->user->username, $parameters = [$post->user->username]) }}
+                    </p>
+                    <p class="card-text">
+                        {{ $post->body }}
+                    </p>
+                    @can ('update-post', $post)
+                        <p>{{ link_to_route('post.edit', $title = "内容を編集", $parameters = [$post->id], $attributes = ['clss' => 'card-link']) }}</p>
+                    @endcan
+                    @if (!is_null($post->image))
+                            <img src="{{ asset(Storage::url($post->image)) }}" class="img-fluid">
+                    @endif
+                </div>
             </div>
             @endforeach
         </div>
