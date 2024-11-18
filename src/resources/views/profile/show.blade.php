@@ -11,8 +11,8 @@
     <h2>
         プロフィール
     </h2>
-    <div class="row justify-content-center gx-5">
-        <div class="col-2">
+    <div class="row justify-content-center">
+        <div class="col-4">
             @if (!is_null($profile))
                 <p>
                     @ {{ $profile['user']['username'] }}
@@ -37,7 +37,7 @@
         </div>
         <div class="col-8">
             @foreach ($posts as $post)
-            <div class="card">
+            <div class="card mb-4">
                 <div class="card-body">
                     <h3 class="card-title">
                         {{ $post->user->display_name }}

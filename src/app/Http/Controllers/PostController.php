@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManager;
-use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
