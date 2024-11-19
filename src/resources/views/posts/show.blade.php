@@ -12,7 +12,9 @@
         @endcan
     <br>
     @if (!is_null($posts->image))
-        <img src="{{ asset(Storage::url($posts->image)) }}">
+    <diV>
+        <img src="{{ asset(Storage::url($posts->image)) }}" class="img-fluid">
+    </diV>
     @endif
 </div>
 @endsection
