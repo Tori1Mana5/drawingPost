@@ -22,9 +22,16 @@
                 @else
                     <div></div>
                 @endif
-                <h3>
-                    {{ $profile['user']['display_name'] }}
-                </h3>
+                <div class="">
+                    <h3>
+                        {{ $profile['user']['display_name'] }}
+                    </h3>
+                </div>
+                @if (Auth::user()->username !== $profile['user']['username'])
+                    <div class="">
+                        <button>フォロー</button>
+                    </div>
+                @endif
                 <p>
                     {{ $profile['profile'] }}
                 </p>
