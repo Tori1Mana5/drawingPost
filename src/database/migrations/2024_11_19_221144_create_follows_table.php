@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('followed_users', function (Blueprint $table) {
+        Schema::create('follows', function (Blueprint $table) {
             $table->id();
             // リレーションで親のusersテーブルのidのレコードが消された場合、紐づくfollowing_user_idとfollowd_user_idをを持つfollowd_usersテーブルのレコードを削除する
             $table->foreignId('following_user_id')->onUpdate('CASCADE')->onDelete('CASCADE')->constrained('users');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('followed_users');
+        Schema::dropIfExists('follows');
     }
 };
