@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    /**
+     * パスワード再設定時の有効なトークン情報の取得
+     *
+     * @return void
+     */
     public function userToken()
     {
         return $this->hasOne(UserToken::class);

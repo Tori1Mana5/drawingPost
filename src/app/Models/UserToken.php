@@ -20,6 +20,11 @@ class UserToken extends Model
         'deleted_at',
     ];
 
+    /**
+     * パスワードを再設定したユーザーを取得
+     *
+     * @return void
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
