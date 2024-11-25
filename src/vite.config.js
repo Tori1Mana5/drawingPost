@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import jquery from 'jquery';
 
 export default defineConfig({
     plugins: [
@@ -11,4 +12,13 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                globals: {
+                    jquery: 'window.jQuery',
+                }
+            }
+        }
+    }
 });
