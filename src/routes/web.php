@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -42,6 +43,9 @@ Route::middleware(['can:isLogin'])->group(function () {
 
     // アカウント削除
     Route::post('/users/delete/complete/', [UserController::class, 'deleteComplete'])->name('user.delete.complete');
+
+    // フォロー処理
+    Route::post('/follow/', [FollowController::class, 'follow'])->name('follow');
 });
 
 //　パスワードリセット関連
